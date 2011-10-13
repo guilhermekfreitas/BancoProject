@@ -184,13 +184,14 @@ public class Login extends javax.swing.JFrame {
             String respostaA = "";
             String respostaB = "";
             String respostaC = "";
-            CliThread A = new CliThread();
+//            ConexaoServidor A = new CliThread();
+            ConexaoServidor A = new ConexaoServidorProxy();
             respostaA = A.ComunicaServidor(msg, servidorA);
             
-            CliThread B = new CliThread();
+            ConexaoServidor B = new CliThread();
             respostaB = B.ComunicaServidor(msg, servidorB);
             
-            CliThread C = new CliThread();
+            ConexaoServidor C = new CliThread();
             respostaC = C.ComunicaServidor(msg, servidorC);
 
             if (!respostaA.equals("0")){

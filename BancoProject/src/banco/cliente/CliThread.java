@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  *
  * @author usuariio
  */
-public class CliThread extends Thread {
+public class CliThread extends Thread implements ConexaoServidor {
 
     public String ComunicaServidor(String msg, String servidor){
         Socket socket = null;
