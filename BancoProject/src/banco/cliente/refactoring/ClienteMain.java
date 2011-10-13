@@ -8,6 +8,7 @@ public class ClienteMain {
 	
 	public ClienteMain(){
 		LoginForm loginForm = new LoginForm();
-	}
+		// testing
+	} 
 	
 }
