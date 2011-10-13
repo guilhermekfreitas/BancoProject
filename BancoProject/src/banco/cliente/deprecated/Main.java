@@ -3,7 +3,8 @@
  * and open the template in the editor.
  */
 
-package banco.cliente;
+package banco.cliente.deprecated;
+
 
 /**
  *

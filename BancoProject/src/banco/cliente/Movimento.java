@@ -24,11 +24,11 @@ public class Movimento extends javax.swing.JFrame {
     /** Creates new form Saque */
     public Movimento() {
         initComponents();
-        lbNome2.setText(banco.cliente.Login.cliNome.toString());
+        lbNome2.setText(banco.cliente.deprecated.Login.cliNome.toString());
         String mesg = "6 ";
-        mesg.concat(banco.cliente.Login.cliConta);
+        mesg.concat(banco.cliente.deprecated.Login.cliConta);
         CliThread saldo = new CliThread();
-        String retorno = saldo.ComunicaServidor(mesg, banco.cliente.Login.cliServidor.toString());
+        String retorno = saldo.comunicaServidor(mesg, banco.cliente.deprecated.Login.cliServidor.toString());
         lbSaldo2.setText(retorno);
     }
 
@@ -184,13 +184,13 @@ public class Movimento extends javax.swing.JFrame {
             valida = false;
         }else {
             if (jComboBox1.getSelectedItem().equals("Saque")) {
-                msg = "4 " + banco.cliente.Login.cliConta.toString() + " " + tfValor.toString();
+                msg = "4 " + banco.cliente.deprecated.Login.cliConta.toString() + " " + tfValor.toString();
 
             } else if (jComboBox1.getSelectedItem().equals("Depósito")) {
-                msg = "3 " + banco.cliente.Login.cliConta.toString() + " " + tfValor.toString();
+                msg = "3 " + banco.cliente.deprecated.Login.cliConta.toString() + " " + tfValor.toString();
             }
             CliThread mov = new CliThread();
-            String retorno = mov.ComunicaServidor(msg, banco.cliente.Login.cliServidor.toString());
+            String retorno = mov.comunicaServidor(msg, banco.cliente.deprecated.Login.cliServidor.toString());
             if (retorno.startsWith("0")) {
                 JOptionPane.showMessageDialog(null, "Falha na operação. Tente novamente!", "Erro!", JOptionPane.ERROR_MESSAGE);
             } else {

@@ -20,7 +20,7 @@ public class Principal extends javax.swing.JFrame {
     /** Creates new form Principal */
     public Principal() {
         initComponents();
-        if(!banco.cliente.Login.cliServidor.equals("Administrador")){
+        if(!banco.cliente.deprecated.Login.cliServidor.equals("Administrador")){
             MenuBusca.setVisible(false);
         }else {
             MenuMovimentacoes.setVisible(false);

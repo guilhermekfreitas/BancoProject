@@ -9,12 +9,15 @@
  * Created on 05/09/2010, 14:55:33
  */
 
-package banco.cliente;
+package banco.cliente.deprecated;
 
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import java.net.*;
 import javax.swing.JOptionPane;
+
+import banco.cliente.CadCliente;
+import banco.cliente.Principal;
 
 
 
@@ -185,14 +188,14 @@ public class Login extends javax.swing.JFrame {
             String respostaB = "";
             String respostaC = "";
 //            ConexaoServidor A = new CliThread();
-            ConexaoServidor A = new ConexaoServidorProxy();
-            respostaA = A.ComunicaServidor(msg, servidorA);
-            
-            ConexaoServidor B = new CliThread();
-            respostaB = B.ComunicaServidor(msg, servidorB);
-            
-            ConexaoServidor C = new CliThread();
-            respostaC = C.ComunicaServidor(msg, servidorC);
+//            ConexaoServidor A = new ConexaoServidorProxy();
+//            respostaA = A.comunicaServidor(msg, servidorA);
+//            
+//            ConexaoServidor B = new CliThread();
+//            respostaB = B.comunicaServidor(msg, servidorB);
+//            
+//            ConexaoServidor C = new CliThread();
+//            respostaC = C.comunicaServidor(msg, servidorC);
 
             if (!respostaA.equals("0")){
                 cliServidor = servidorA.toString();

@@ -20,11 +20,11 @@ public class Saldo extends javax.swing.JFrame {
     /** Creates new form Saldo */
     public Saldo() {
         initComponents();
-        String msg = "6 "+banco.cliente.Login.cliConta;
-        lbConta2.setText(banco.cliente.Login.cliConta.toString());
-        lbNome2.setText(banco.cliente.Login.cliNome.toString());
+        String msg = "6 "+banco.cliente.deprecated.Login.cliConta;
+        lbConta2.setText(banco.cliente.deprecated.Login.cliConta.toString());
+        lbNome2.setText(banco.cliente.deprecated.Login.cliNome.toString());
         CliThread saldo = new CliThread();
-        String retorno = saldo.ComunicaServidor(msg, banco.cliente.Login.cliServidor.toString());
+        String retorno = saldo.comunicaServidor(msg, banco.cliente.deprecated.Login.cliServidor.toString());
         lbSaldo2.setText(retorno);
         Date dt = new Date();
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");

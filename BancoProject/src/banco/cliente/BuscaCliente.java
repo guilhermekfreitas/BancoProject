@@ -193,7 +193,7 @@ public class BuscaCliente extends javax.swing.JFrame {
         if (valido = true){
             String msg = "7 "+tfConta.toString();
             CliThread consulta = new CliThread();
-            String retorno = consulta.ComunicaServidor(msg, "Administrador");
+            String retorno = consulta.comunicaServidor(msg, "Administrador");
             int tam = retorno.length();
             char palavra[]=retorno.toCharArray();
             int cont = 2;

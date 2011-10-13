@@ -1,5 +1,7 @@
 package banco.cliente;
 
+import banco.cliente.refactoring.Servidor;
+
 public interface ConexaoServidor {
-	public String ComunicaServidor(String msg, String servidor);
+	public String comunicaServidor(String msg, Servidor servidor);
 }

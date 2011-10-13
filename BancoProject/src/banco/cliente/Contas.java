@@ -27,7 +27,7 @@ public class Contas extends javax.swing.JFrame {
         while(!resposta.equals("0")){
             //manda msg para o servidor
             CliThread consulta = new CliThread();
-            retorno = consulta.ComunicaServidor(msg, banco.cliente.Login.servidorA);
+            retorno = consulta.comunicaServidor(msg, banco.cliente.deprecated.Login.servidorA);
             //quando resposta for igual a zero , quer dizer que acabaram as contas
             resposta = retorno;
 
@@ -84,7 +84,7 @@ public class Contas extends javax.swing.JFrame {
         while(!resposta.equals("0")){
             //manda msg para o servidor
             CliThread consulta = new CliThread();
-            retorno = consulta.ComunicaServidor(msg, banco.cliente.Login.servidorB);
+            retorno = consulta.comunicaServidor(msg, banco.cliente.deprecated.Login.servidorB);
             //quando resposta for igual a zero , quer dizer que acabaram as contas
             resposta = retorno;
 
@@ -141,7 +141,7 @@ public class Contas extends javax.swing.JFrame {
         while(!resposta.equals("0")){
             //manda msg para o servidor
             CliThread consulta = new CliThread();
-            retorno = consulta.ComunicaServidor(msg, banco.cliente.Login.servidorC);
+            retorno = consulta.comunicaServidor(msg, banco.cliente.deprecated.Login.servidorC);
             //quando resposta for igual a zero , quer dizer que acabaram as contas
             resposta = retorno;
 

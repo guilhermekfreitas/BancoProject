@@ -19,6 +19,8 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
+import banco.cliente.deprecated.Login;
 /**
  *
  * @author usuariio
@@ -266,13 +268,13 @@ public class CadCliente extends javax.swing.JFrame {
             //Abrindo conexão
             int serverPort = 1001;
             switch (servidor){
-                case 1:{socket = new Socket(banco.cliente.Login.servidorA.toString(), serverPort);
+                case 1:{socket = new Socket(banco.cliente.deprecated.Login.servidorA.toString(), serverPort);
                         break;
                 }
-                case 2:{socket = new Socket(banco.cliente.Login.servidorB.toString(), serverPort);
+                case 2:{socket = new Socket(banco.cliente.deprecated.Login.servidorB.toString(), serverPort);
                         break;
                 }
-                case 3:{socket = new Socket(banco.cliente.Login.servidorC.toString(), serverPort);
+                case 3:{socket = new Socket(banco.cliente.deprecated.Login.servidorC.toString(), serverPort);
                         break;
                 }
                 default:JOptionPane.showMessageDialog(null, "Falha no servidor!", "Erro!", JOptionPane.ERROR_MESSAGE);
