@@ -59,7 +59,7 @@ public class Movimento extends javax.swing.JFrame {
         setTitle("Movimentações");
         setResizable(false);
 
-        lbMovimentacao.setText("Movimentação: ");
+        lbMovimentacao.setText("Movimenta��o: ");
 
         lbValor.setText("Valor: ");
 
