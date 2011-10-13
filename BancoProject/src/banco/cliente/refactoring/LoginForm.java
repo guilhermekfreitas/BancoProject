@@ -13,9 +13,9 @@ import banco.cliente.deprecated.Login;
 
 public class LoginForm {
 
-	public static Servidor servidorA = new Servidor("Servidor A", "127.0.0.1");
-	public static Servidor servidorB = new Servidor("Servidor B", "127.0.0.1");
-	public static Servidor servidorC = new Servidor("Servidor C", "127.0.0.1");
+	public static Servidor servidorA = new Servidor("Servidor A", "192.168.1.104", 3983);
+	public static Servidor servidorB = new Servidor("Servidor B", "127.0.0.1", 4446);
+	public static Servidor servidorC = new Servidor("Servidor C", "127.0.0.1", 4446);
 
 	//Configurar o IP Conforme os servidores
 	//	public static String servidorA = "127.0.0.1";
@@ -48,7 +48,7 @@ public class LoginForm {
 	private void iniciaComponentes() {
 		// TODO Auto-generated method stub
 
-		frame = new JFrame();
+		frame = new JFrame("Interface do Cliente - Login");
 
 		lbLogin = new JLabel();
 		lbSenha = new JLabel();
@@ -143,7 +143,8 @@ public class LoginForm {
 	private void start(){
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new Login().setVisible(true);
+				//				new Login().setVisible(true);]
+				frame.setVisible(true);
 			}
 		});
 	}
@@ -171,81 +172,103 @@ public class LoginForm {
 		private void btnOkActionPerformed(ActionEvent evt) {
 			// TODO Auto-generated method stub
 			String login = tfLogin.getText();
-			String senha = tfSenha.getSelectedText(); //getText();
+			String senha = new String(tfSenha.getPassword()); //getText();
 			String msgEnvio = gerarMsgEnvio(login, senha);
 
-			validaCampos(login, senha);
-
-			if ((login.equals("admin"))&&(senha.equals("admin"))){
-				cliente = new Administrador();
-				//				cliServidor = "Administrador";
-				//				numConta = "---";
-				//				cliNome = "Administrador";
-				//				cliSaldo = "R$ 0,00";
-				frame.dispose();
-				Principal programa = new Principal();
-				programa.setLocationRelativeTo(null);
-				programa.setVisible(true);
-			}else{
-				String respostaA = "";
-				String respostaB = "";
-				String respostaC = "";
-				//		            ConexaoServidor A = new CliThread();
-				ConexaoServidor A = new ConexaoServidorProxy();
-				respostaA = A.comunicaServidor(msgEnvio, servidorA);
-
-				ConexaoServidor B = new ConexaoServidorProxy();
-				respostaB = B.comunicaServidor(msgEnvio, servidorB);
-
-				ConexaoServidor C = new ConexaoServidorProxy();
-				respostaC = C.comunicaServidor(msgEnvio, servidorC);
-
-				if (!respostaA.equals("0")){
-					cliente.setCliServidor(servidorA.getEnderecoIP());
-					//					cliServidor = servidorA.toString();
-					preencheCliente(respostaA);
-					frame.dispose();
-					Principal programa = new Principal();
-					programa.setLocationRelativeTo(null);
-					programa.setVisible(true);
-				}else if (!respostaB.equals("0")){
-					cliente.setCliServidor(servidorB.getEnderecoIP());
-					preencheCliente(respostaB);
-					frame.dispose();
-					Principal programa = new Principal();
-					programa.setLocationRelativeTo(null);
-					programa.setVisible(true);
-				}else if (!respostaC.equals("0")){
-					cliente.setCliServidor(servidorC.getEnderecoIP());
-					preencheCliente(respostaC);
+			try {
+				
+				validaCampos(login, senha);
+				
+				if (isAdmin(login, senha)){
+					cliente = new Administrador();
+					//				cliServidor = "Administrador";
+					//				numConta = "---";
+					//				cliNome = "Administrador";
+					//				cliSaldo = "R$ 0,00";
 					frame.dispose();
 					Principal programa = new Principal();
 					programa.setLocationRelativeTo(null);
 					programa.setVisible(true);
 				}else{
-					JOptionPane.showMessageDialog(null, "Usuário não cadastrado!", "Erro!", JOptionPane.ERROR_MESSAGE);
+					//		            ConexaoServidor A = new CliThread();
+					
+					ConexaoServidor A = new ConexaoServerImpl();
+					String respostaA = A.comunicaServidor(msgEnvio, servidorA);
+
+					ConexaoServidor B = new ConexaoServidorProxy();
+					String respostaB = B.comunicaServidor(msgEnvio, servidorB);
+
+					ConexaoServidor C = new ConexaoServidorProxy();
+					String respostaC = C.comunicaServidor(msgEnvio, servidorC);
+
+					if (!respostaA.equals("0")){
+						cliente.setCliServidor(servidorA.getEnderecoIP());
+						//					cliServidor = servidorA.toString();
+						preencheCliente(respostaA);
+						frame.dispose();
+						Principal programa = new Principal();
+						programa.setLocationRelativeTo(null);
+						programa.setVisible(true);
+					}else if (!respostaB.equals("0")){
+						cliente.setCliServidor(servidorB.getEnderecoIP());
+						preencheCliente(respostaB);
+						frame.dispose();
+						Principal programa = new Principal();
+						programa.setLocationRelativeTo(null);
+						programa.setVisible(true);
+					}else if (!respostaC.equals("0")){
+						cliente.setCliServidor(servidorC.getEnderecoIP());
+						preencheCliente(respostaC);
+						frame.dispose();
+						Principal programa = new Principal();
+						programa.setLocationRelativeTo(null);
+						programa.setVisible(true);
+					}else{
+						JOptionPane.showMessageDialog(null, "Usuário não cadastrado!", "Erro!", JOptionPane.ERROR_MESSAGE);
+					}
 				}
+				
+			} catch (LoginOuSenhaInvalidoException exception ){
+				JOptionPane.showMessageDialog(null, exception.getMessage() , "Erro!", JOptionPane.OK_OPTION);
 			}
 			
+			
+
 		}
 
-		private void validaCampos(String login, String senha) {
-			if (login.equals("")|| login.equals(" ")){
-				JOptionPane.showMessageDialog(null, "Campo Login em branco.", "Erro!", JOptionPane.OK_OPTION);
+		private boolean isAdmin(String login, String senha) {
+			System.out.println(login + " " + senha);
+			return (login.equals("admin"))&&(senha.equals("admin"));
+		}
+
+		private void validaCampos(String login, String senha) 
+				throws LoginOuSenhaInvalidoException {
+
+			System.out.println("Login:<"+login.trim()+">");
+			if (login.trim().isEmpty() || senha.trim().isEmpty()){
+				throw new LoginOuSenhaInvalidoException("Campo Login e/ou Senha está em branco.");
+				//JOptionPane.showMessageDialog(null, , "Erro!", JOptionPane.OK_OPTION);
 			}
-			if (senha.equals("")||senha.equals(" ")){
-				JOptionPane.showMessageDialog(null, "Campo Senha em branco.", "Erro!", JOptionPane.OK_OPTION);
-			}
+
+//			if (login.equals("")|| login.equals(" ")){
+//				JOptionPane.showMessageDialog(null, "Campo Login em branco.", "Erro!", JOptionPane.OK_OPTION);
+//			}
+//			if (senha.equals("")||senha.equals(" ")){
+//				JOptionPane.showMessageDialog(null, "Campo Senha em branco.", "Erro!", JOptionPane.OK_OPTION);
+//			}
 		}
 
 		private String gerarMsgEnvio(String login, String senha) {
 			return TipoComando.SAQUE + " "+ login + " " + senha;
 		}
 
-	
-		private void preencheCliente(String respostaA) {
-			int tam = respostaA.length();
-			char palavra[]=respostaA.toCharArray();
+
+		private void preencheCliente(String respostaServidor) {
+
+			System.out.println("DECODIFICANDO: " + respostaServidor);
+
+			int tam = respostaServidor.length();
+			char palavra[]=respostaServidor.toCharArray();
 			int cont = 2;
 			int inicio = 0;
 			for (int i = 1; i<=3 ;i++){
@@ -258,17 +281,17 @@ public class LoginForm {
 				}
 				switch(i){
 				case 1:
-					String numConta = respostaA.substring(inicio, cont-1);
+					String numConta = respostaServidor.substring(inicio, cont-1);
 					cliente.setNumConta(numConta);
 					cont++;
 					break;
 				case 2:
-					String cliNome = respostaA.substring(inicio, cont-1);
+					String cliNome = respostaServidor.substring(inicio, cont-1);
 					cliente.setNome(cliNome);
 					cont++;
 					break;
 				case 3:
-					String cliSaldo = respostaA.substring(inicio);
+					String cliSaldo = respostaServidor.substring(inicio);
 					cliente.setSaldo(cliSaldo);
 					cont++;
 					break;

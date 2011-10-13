@@ -14,7 +14,7 @@ public class ConexaoServidorProxy implements ConexaoServidor {
 			System.out.println("Quer sacar");
 		}
 		
-		return "retorno";
+		return "0retorno";
 	}
 
 }
