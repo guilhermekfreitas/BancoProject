@@ -13,7 +13,7 @@ import banco.cliente.deprecated.Login;
 
 public class LoginForm {
 
-	public static Servidor servidorA = new Servidor("Servidor A", "192.168.1.104", 3983);
+	public static Servidor servidorA = new Servidor("Servidor A", "192.168.1.104", 4446);
 	public static Servidor servidorB = new Servidor("Servidor B", "127.0.0.1", 4446);
 	public static Servidor servidorC = new Servidor("Servidor C", "127.0.0.1", 4446);
 
@@ -176,9 +176,9 @@ public class LoginForm {
 			String msgEnvio = gerarMsgEnvio(login, senha);
 
 			try {
-				
+
 				validaCampos(login, senha);
-				
+
 				if (isAdmin(login, senha)){
 					cliente = new Administrador();
 					//				cliServidor = "Administrador";
@@ -191,15 +191,22 @@ public class LoginForm {
 					programa.setVisible(true);
 				}else{
 					//		            ConexaoServidor A = new CliThread();
-					
-					ConexaoServidor A = new ConexaoServerImpl();
-					String respostaA = A.comunicaServidor(msgEnvio, servidorA);
+					String respostaA = null;
+					try
+					{
+						ConexaoServidor conexaoServidor = new ConexaoServerImpl();
+						respostaA = conexaoServidor.comunicaServidor(msgEnvio, servidorA);
+						System.out.println("Resposta do servidor:" + respostaA);
 
-					ConexaoServidor B = new ConexaoServidorProxy();
-					String respostaB = B.comunicaServidor(msgEnvio, servidorB);
-
-					ConexaoServidor C = new ConexaoServidorProxy();
-					String respostaC = C.comunicaServidor(msgEnvio, servidorC);
+					} catch (ConexaoException exc){
+						JOptionPane.showMessageDialog(null, exc.getMessage(), "Erro!", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					//					ConexaoServidor B = new ConexaoServidorProxy();
+					//					String respostaB = B.comunicaServidor(msgEnvio, servidorB);
+					//
+					//					ConexaoServidor C = new ConexaoServidorProxy();
+					//					String respostaC = C.comunicaServidor(msgEnvio, servidorC);
 
 					if (!respostaA.equals("0")){
 						cliente.setCliServidor(servidorA.getEnderecoIP());
@@ -209,30 +216,32 @@ public class LoginForm {
 						Principal programa = new Principal();
 						programa.setLocationRelativeTo(null);
 						programa.setVisible(true);
-					}else if (!respostaB.equals("0")){
-						cliente.setCliServidor(servidorB.getEnderecoIP());
-						preencheCliente(respostaB);
-						frame.dispose();
-						Principal programa = new Principal();
-						programa.setLocationRelativeTo(null);
-						programa.setVisible(true);
-					}else if (!respostaC.equals("0")){
-						cliente.setCliServidor(servidorC.getEnderecoIP());
-						preencheCliente(respostaC);
-						frame.dispose();
-						Principal programa = new Principal();
-						programa.setLocationRelativeTo(null);
-						programa.setVisible(true);
-					}else{
+					}
+					//					else if (!respostaB.equals("0")){
+					//						cliente.setCliServidor(servidorB.getEnderecoIP());
+					//						preencheCliente(respostaB);
+					//						frame.dispose();
+					//						Principal programa = new Principal();
+					//						programa.setLocationRelativeTo(null);
+					//						programa.setVisible(true);
+					//					}else if (!respostaC.equals("0")){
+					//						cliente.setCliServidor(servidorC.getEnderecoIP());
+					//						preencheCliente(respostaC);
+					//						frame.dispose();
+					//						Principal programa = new Principal();
+					//						programa.setLocationRelativeTo(null);
+					//						programa.setVisible(true);
+					//					}
+					else{
 						JOptionPane.showMessageDialog(null, "Usuário não cadastrado!", "Erro!", JOptionPane.ERROR_MESSAGE);
 					}
 				}
-				
+
 			} catch (LoginOuSenhaInvalidoException exception ){
 				JOptionPane.showMessageDialog(null, exception.getMessage() , "Erro!", JOptionPane.OK_OPTION);
 			}
-			
-			
+
+
 
 		}
 
@@ -250,12 +259,12 @@ public class LoginForm {
 				//JOptionPane.showMessageDialog(null, , "Erro!", JOptionPane.OK_OPTION);
 			}
 
-//			if (login.equals("")|| login.equals(" ")){
-//				JOptionPane.showMessageDialog(null, "Campo Login em branco.", "Erro!", JOptionPane.OK_OPTION);
-//			}
-//			if (senha.equals("")||senha.equals(" ")){
-//				JOptionPane.showMessageDialog(null, "Campo Senha em branco.", "Erro!", JOptionPane.OK_OPTION);
-//			}
+			//			if (login.equals("")|| login.equals(" ")){
+			//				JOptionPane.showMessageDialog(null, "Campo Login em branco.", "Erro!", JOptionPane.OK_OPTION);
+			//			}
+			//			if (senha.equals("")||senha.equals(" ")){
+			//				JOptionPane.showMessageDialog(null, "Campo Senha em branco.", "Erro!", JOptionPane.OK_OPTION);
+			//			}
 		}
 
 		private String gerarMsgEnvio(String login, String senha) {
