@@ -7,7 +7,7 @@ public class ClienteMain {
 	
 	
 	public ClienteMain(){
-		LoginForm loginForm = new LoginForm();
+		LoginView loginForm = new LoginView();
 		// testing
 	} 
 	

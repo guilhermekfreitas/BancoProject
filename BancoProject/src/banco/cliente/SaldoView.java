@@ -13,12 +13,22 @@ package banco.cliente;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.swing.JLabel;
+import javax.swing.*;
 
-public class Saldo extends javax.swing.JFrame {
+public class SaldoView extends JFrame {
+
+    private JButton btnOk;
+    private JLabel lbConta;
+    private JLabel lbConta2;
+    private JLabel lbData;
+    private JLabel lbData2;
+    private JLabel lbNome;
+    private JLabel lbNome2;
+    private JLabel lbSaldo;
+    private JLabel lbSaldo2;
 
     /** Creates new form Saldo */
-    public Saldo() {
+    public SaldoView() {
         initComponents();
         String msg = "6 "+banco.cliente.deprecated.Login.cliConta;
         lbConta2.setText(banco.cliente.deprecated.Login.cliConta.toString());
@@ -33,20 +43,19 @@ public class Saldo extends javax.swing.JFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lbNome = new javax.swing.JLabel();
-        lbSaldo = new javax.swing.JLabel();
-        lbNome2 = new javax.swing.JLabel();
-        lbSaldo2 = new javax.swing.JLabel();
-        lbData = new javax.swing.JLabel();
-        lbData2 = new javax.swing.JLabel();
-        lbConta = new javax.swing.JLabel();
-        lbConta2 = new javax.swing.JLabel();
-        btnOk = new javax.swing.JButton();
+        lbNome = new JLabel();
+        lbSaldo = new JLabel();
+        lbNome2 = new JLabel();
+        lbSaldo2 = new JLabel();
+        lbData = new JLabel();
+        lbData2 = new JLabel();
+        lbConta = new JLabel();
+        lbConta2 = new JLabel();
+        btnOk = new JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Consulta Saldo");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
@@ -84,55 +93,59 @@ public class Saldo extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        configuraLayout();
+    }// </editor-fold>//GEN-END:initComponents
+
+	private void configuraLayout() {
+		GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addComponent(lbConta)
                     .addComponent(lbData)
                     .addComponent(lbSaldo)
                     .addComponent(lbNome))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addComponent(lbSaldo2)
-                    .addComponent(lbData2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbData2, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbConta2)
                     .addComponent(lbNome2))
                 .addContainerGap(157, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(251, Short.MAX_VALUE)
-                .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnOk, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(lbNome)
                     .addComponent(lbNome2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(lbSaldo)
                     .addComponent(lbSaldo2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(lbData)
                     .addComponent(lbData2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(lbConta)
                     .addComponent(lbConta2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
                 .addComponent(btnOk)
                 .addContainerGap())
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+	}
 
     private void btnOkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOkMouseClicked
         dispose();
@@ -178,16 +191,5 @@ public class Saldo extends javax.swing.JFrame {
         this.lbSaldo2 = lbSaldo2;
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnOk;
-    private javax.swing.JLabel lbConta;
-    private javax.swing.JLabel lbConta2;
-    private javax.swing.JLabel lbData;
-    private javax.swing.JLabel lbData2;
-    private javax.swing.JLabel lbNome;
-    private javax.swing.JLabel lbNome2;
-    private javax.swing.JLabel lbSaldo;
-    private javax.swing.JLabel lbSaldo2;
-    // End of variables declaration//GEN-END:variables
 
 }

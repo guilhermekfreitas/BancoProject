@@ -1,7 +1,7 @@
-package banco.cliente.refactoring;
+package banco.cliente.util;
 
 public enum TipoComando {
-	SAQUE("1"),LOGIN("2");
+	SAQUE("1"),LOGIN("2"),DEPOSITO("3");
 
 	TipoComando(String comando){
 		this.comando = comando;

@@ -6,12 +6,17 @@ import javax.swing.*;
 
 import banco.cliente.CadCliente;
 import banco.cliente.CliThread;
-import banco.cliente.ConexaoServidor;
-import banco.cliente.ConexaoServidorProxy;
 import banco.cliente.Principal;
 import banco.cliente.deprecated.Login;
+import banco.cliente.modelo.Administrador;
+import banco.cliente.modelo.Cliente;
+import banco.cliente.modelo.Servidor;
+import banco.cliente.modelo.conexao.ConexaoServerImpl;
+import banco.cliente.modelo.conexao.ConexaoServidor;
+import banco.cliente.modelo.conexao.ConexaoServidorProxy;
+import banco.cliente.util.TipoComando;
 
-public class LoginForm {
+public class LoginView {
 
 	public static Servidor servidorA = new Servidor("Servidor A", "192.168.1.104", 4446);
 	public static Servidor servidorB = new Servidor("Servidor B", "127.0.0.1", 4446);
@@ -39,7 +44,7 @@ public class LoginForm {
 	private JPasswordField tfSenha;
 	private JFrame frame;
 
-	public LoginForm(){
+	public LoginView(){
 		iniciaComponentes();
 		start();
 	}

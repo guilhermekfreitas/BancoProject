@@ -11,16 +11,28 @@
 
 package banco.cliente;
 
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+import javax.swing.*;
+
+import banco.cliente.util.TipoComando;
 
 /**
  *
  * @author usuariio
  */
-public class Movimento extends javax.swing.JFrame {
+public class Movimento extends JFrame {
 
+    private JButton btnCancelar;
+    private JButton btnConfirmar;
+    private JComboBox jComboBox1;
+    private JLabel jLabel3;
+    private JLabel lbMovimentacao;
+    private JLabel lbNome;
+    private JLabel lbNome2;
+    private JLabel lbSaldo;
+    private JLabel lbSaldo2;
+    private JLabel lbValor;
+    private JTextField tfValor;
+	
     /** Creates new form Saque */
     public Movimento() {
         initComponents();
@@ -41,21 +53,21 @@ public class Movimento extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel3 = new javax.swing.JLabel();
-        lbMovimentacao = new javax.swing.JLabel();
-        lbValor = new javax.swing.JLabel();
-        tfValor = new javax.swing.JTextField();
-        btnConfirmar = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox();
-        lbNome = new javax.swing.JLabel();
-        lbNome2 = new javax.swing.JLabel();
-        lbSaldo = new javax.swing.JLabel();
-        lbSaldo2 = new javax.swing.JLabel();
+        jLabel3 = new JLabel();
+        lbMovimentacao = new JLabel();
+        lbValor = new JLabel();
+        tfValor = new JTextField();
+        btnConfirmar = new JButton();
+        btnCancelar = new JButton();
+        jComboBox1 = new JComboBox();
+        lbNome = new JLabel();
+        lbNome2 = new JLabel();
+        lbSaldo = new JLabel();
+        lbSaldo2 = new JLabel();
 
         jLabel3.setText("jLabel3");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Movimentações");
         setResizable(false);
 
@@ -77,7 +89,7 @@ public class Movimento extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Saque", "Depósito" }));
+        jComboBox1.setModel(new DefaultComboBoxModel(new String[] { "Saque", "Depósito" }));
 
         lbNome.setText("Nome:");
 
@@ -87,51 +99,51 @@ public class Movimento extends javax.swing.JFrame {
 
         lbSaldo2.setText("Saldo");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addComponent(lbMovimentacao)
                     .addComponent(lbSaldo)
                     .addComponent(lbValor)
                     .addComponent(lbNome))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addComponent(lbNome2)
-                    .addComponent(tfValor, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                    .addComponent(tfValor, GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
                     .addComponent(lbSaldo2)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                         .addComponent(jComboBox1, 0, 158, Short.MAX_VALUE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addComponent(btnConfirmar)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(btnCancelar))))
                 .addContainerGap(49, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(lbNome)
                     .addComponent(lbNome2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(lbSaldo)
                     .addComponent(lbSaldo2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(lbMovimentacao)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfValor, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbValor))
                 .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConfirmar)
                     .addComponent(btnCancelar))
                 .addContainerGap(14, Short.MAX_VALUE))
@@ -187,7 +199,7 @@ public class Movimento extends javax.swing.JFrame {
                 msg = "4 " + banco.cliente.deprecated.Login.cliConta.toString() + " " + tfValor.toString();
 
             } else if (jComboBox1.getSelectedItem().equals("Depósito")) {
-                msg = "3 " + banco.cliente.deprecated.Login.cliConta.toString() + " " + tfValor.toString();
+                msg = TipoComando.DEPOSITO + " " + banco.cliente.deprecated.Login.cliConta.toString() + " " + tfValor.toString();
             }
             CliThread mov = new CliThread();
             String retorno = mov.comunicaServidor(msg, banco.cliente.deprecated.Login.cliServidor.toString());
@@ -199,18 +211,6 @@ public class Movimento extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnConfirmar;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel lbMovimentacao;
-    private javax.swing.JLabel lbNome;
-    private javax.swing.JLabel lbNome2;
-    private javax.swing.JLabel lbSaldo;
-    private javax.swing.JLabel lbSaldo2;
-    private javax.swing.JLabel lbValor;
-    private javax.swing.JTextField tfValor;
-    // End of variables declaration//GEN-END:variables
+    
 
 }

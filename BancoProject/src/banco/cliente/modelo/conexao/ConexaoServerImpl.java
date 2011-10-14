@@ -1,4 +1,4 @@
-package banco.cliente.refactoring;
+package banco.cliente.modelo.conexao;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -15,7 +15,8 @@ import java.net.UnknownHostException;
 
 import javax.swing.JOptionPane;
 
-import banco.cliente.ConexaoServidor;
+import banco.cliente.modelo.Servidor;
+import banco.cliente.refactoring.ConexaoException;
 
 public class ConexaoServerImpl implements ConexaoServidor {
 

@@ -1,4 +1,5 @@
-package banco.cliente.refactoring;
+package banco.cliente.modelo;
+
 
 public class Administrador extends Cliente {
 	

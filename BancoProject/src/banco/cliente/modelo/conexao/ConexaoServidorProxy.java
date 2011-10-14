@@ -1,6 +1,6 @@
-package banco.cliente;
+package banco.cliente.modelo.conexao;
 
-import banco.cliente.refactoring.Servidor;
+import banco.cliente.modelo.Servidor;
 
 public class ConexaoServidorProxy implements ConexaoServidor {
 

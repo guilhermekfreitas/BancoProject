@@ -17,16 +17,32 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 import banco.cliente.deprecated.Login;
 /**
  *
  * @author usuariio
  */
-public class CadCliente extends javax.swing.JFrame {
+public class CadCliente extends JFrame {
 
+    private JButton btnCadastrar;
+    private JButton btnCancelar;
+    private JLabel lbConta;
+    private JLabel lbCpf;
+    private JLabel lbDtNascimento;
+    private JLabel lbLogin;
+    private JLabel lbNome;
+    private JLabel lbRG;
+    private JLabel lbSenha;
+    private JPasswordField pfSenha;
+    private JTextField tfConta;
+    private JTextField tfCpf;
+    private JTextField tfDtNascimento;
+    private JTextField tfLogin;
+    private JTextField tfNome;
+    private JTextField tfRG;
+	
     /** Creates new form CadCliente */
     public CadCliente() {
         initComponents();
@@ -43,24 +59,24 @@ public class CadCliente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lbNome = new javax.swing.JLabel();
-        lbCpf = new javax.swing.JLabel();
-        lbDtNascimento = new javax.swing.JLabel();
-        lbConta = new javax.swing.JLabel();
-        tfNome = new javax.swing.JTextField();
-        tfCpf = new javax.swing.JTextField();
-        tfDtNascimento = new javax.swing.JTextField();
-        tfConta = new javax.swing.JTextField();
-        lbLogin = new javax.swing.JLabel();
-        lbSenha = new javax.swing.JLabel();
-        tfLogin = new javax.swing.JTextField();
-        pfSenha = new javax.swing.JPasswordField();
-        btnCadastrar = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
-        tfRG = new javax.swing.JTextField();
-        lbRG = new javax.swing.JLabel();
+        lbNome = new JLabel();
+        lbCpf = new JLabel();
+        lbDtNascimento = new JLabel();
+        lbConta = new JLabel();
+        tfNome = new JTextField();
+        tfCpf = new JTextField();
+        tfDtNascimento = new JTextField();
+        tfConta = new JTextField();
+        lbLogin = new JLabel();
+        lbSenha = new JLabel();
+        tfLogin = new JTextField();
+        pfSenha = new JPasswordField();
+        btnCadastrar = new JButton();
+        btnCancelar = new JButton();
+        tfRG = new JTextField();
+        lbRG = new JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Cliente");
         setResizable(false);
 
@@ -70,7 +86,7 @@ public class CadCliente extends javax.swing.JFrame {
 
         lbDtNascimento.setText("Data de nascimento: ");
 
-        lbConta.setText("NÂº da Conta: ");
+        lbConta.setText("Nº da Conta: ");
 
         tfConta.setBackground(new java.awt.Color(157, 151, 146));
         tfConta.setEditable(false);
@@ -95,13 +111,17 @@ public class CadCliente extends javax.swing.JFrame {
 
         lbRG.setText("RG: ");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        configuraLayout();
+    }// </editor-fold>//GEN-END:initComponents
+
+	private void configuraLayout() {
+		GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addComponent(lbConta)
                     .addComponent(lbDtNascimento)
                     .addComponent(lbLogin)
@@ -109,69 +129,69 @@ public class CadCliente extends javax.swing.JFrame {
                     .addComponent(lbNome)
                     .addComponent(lbCpf)
                     .addComponent(lbRG))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfRG, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
-                            .addComponent(tfDtNascimento, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
-                            .addComponent(tfConta, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
-                            .addComponent(tfLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
-                            .addComponent(pfSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
-                            .addComponent(tfCpf, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                            .addComponent(tfRG, GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                            .addComponent(tfDtNascimento, GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                            .addComponent(tfConta, GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                            .addComponent(tfLogin, GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                            .addComponent(pfSenha, GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                            .addComponent(tfCpf, GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
                         .addContainerGap(163, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfNome, GroupLayout.PREFERRED_SIZE, 244, GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
             .addGroup(layout.createSequentialGroup()
                 .addGap(164, 164, 164)
                 .addComponent(btnCadastrar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCancelar)
                 .addContainerGap(119, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(lbNome)
-                    .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfCpf, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbCpf))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfRG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfRG, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbRG))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(lbDtNascimento)
-                    .addComponent(tfDtNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfDtNascimento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(lbConta)
-                    .addComponent(tfConta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tfConta, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lbLogin)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lbSenha))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(tfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(tfLogin, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pfSenha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
                 .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnCadastrar))
                 .addContainerGap())
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+	}
 
     public JTextField getTfRG() {
         return tfRG;
@@ -316,23 +336,6 @@ public class CadCliente extends javax.swing.JFrame {
       }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCadastrar;
-    private javax.swing.JButton btnCancelar;
-    private javax.swing.JLabel lbConta;
-    private javax.swing.JLabel lbCpf;
-    private javax.swing.JLabel lbDtNascimento;
-    private javax.swing.JLabel lbLogin;
-    private javax.swing.JLabel lbNome;
-    private javax.swing.JLabel lbRG;
-    private javax.swing.JLabel lbSenha;
-    private javax.swing.JPasswordField pfSenha;
-    private javax.swing.JTextField tfConta;
-    private javax.swing.JTextField tfCpf;
-    private javax.swing.JTextField tfDtNascimento;
-    private javax.swing.JTextField tfLogin;
-    private javax.swing.JTextField tfNome;
-    private javax.swing.JTextField tfRG;
-    // End of variables declaration//GEN-END:variables
+   
 
 }

@@ -1,4 +1,4 @@
-package banco.cliente.refactoring;
+package banco.cliente.modelo;
 
 public class Servidor {
 	private String nome;
