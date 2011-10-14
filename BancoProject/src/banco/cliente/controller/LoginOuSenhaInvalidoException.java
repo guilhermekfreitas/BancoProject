@@ -1,4 +1,4 @@
-package banco.cliente.refactoring;
+package banco.cliente.controller;
 
 public class LoginOuSenhaInvalidoException extends RuntimeException {
 

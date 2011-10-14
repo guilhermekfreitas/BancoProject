@@ -15,8 +15,8 @@ import java.net.UnknownHostException;
 
 import javax.swing.JOptionPane;
 
+import banco.cliente.controller.ConexaoException;
 import banco.cliente.modelo.Servidor;
-import banco.cliente.refactoring.ConexaoException;
 
 public class ConexaoServerImpl implements ConexaoServidor {
 

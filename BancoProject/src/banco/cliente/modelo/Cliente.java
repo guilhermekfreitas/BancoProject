@@ -7,14 +7,60 @@ public class Cliente {
 	private String nome;
 	private String saldo;
 	private String cliServidor; // o que é isso!
+	private String cpf;
+	private String rg;
+	private String dataNasc;
+	private String login;
+	private String senha;
 	
 	public Cliente(){
 		numConta = "";
 		nome = "";
 		saldo = "";
 		cliServidor = "";
+		cpf = "";
+		rg = "";
+		dataNasc = "";
+		login = "";
+		senha = "";
 	}
 	
+	public String getRg() {
+		return rg;
+	}
+
+	public void setRg(String rg) {
+		this.rg = rg;
+	}
+
+	public String getDataNasc() {
+		return dataNasc;
+	}
+
+	public void setDataNasc(String dataNasc) {
+		this.dataNasc = dataNasc;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
 	public String getNumConta() {
 		return numConta;
 	}
@@ -38,6 +84,10 @@ public class Cliente {
 	}
 	public void setCliServidor(String cliServidor) {
 		this.cliServidor = cliServidor;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 	
 	

@@ -9,22 +9,24 @@
  * Created on 05/09/2010, 15:43:53
  */
 
-package banco.cliente;
+package banco.cliente.view;
 
-import java.io.EOFException;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
-import java.net.UnknownHostException;
+import java.io.*;
+import java.net.*;
 import javax.swing.*;
+import java.awt.event.*;
 
+import banco.cliente.controller.CadastroIncompletoException;
+import banco.cliente.controller.ClienteController;
+import banco.cliente.controller.ConexaoException;
+import banco.cliente.controller.ErroCadastroException;
 import banco.cliente.deprecated.Login;
+import banco.cliente.modelo.Cliente;
 /**
  *
  * @author usuariio
  */
-public class CadCliente extends JFrame {
+public class CadClienteView extends JFrame {
 
     private JButton btnCadastrar;
     private JButton btnCancelar;
@@ -44,7 +46,7 @@ public class CadCliente extends JFrame {
     private JTextField tfRG;
 	
     /** Creates new form CadCliente */
-    public CadCliente() {
+    public CadClienteView() {
         initComponents();
         int conta = 100000 + (int)(Math.random() *999999);
         tfConta.setText(Integer.toString(conta));
@@ -96,15 +98,15 @@ public class CadCliente extends JFrame {
         lbSenha.setText("Senha: ");
 
         btnCadastrar.setText("Cadastrar");
-        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnCadastrar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 btnCadastrarActionPerformed(evt);
             }
         });
 
         btnCancelar.setText("Cancelar");
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnCancelar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
             }
         });
@@ -233,108 +235,148 @@ public class CadCliente extends JFrame {
         this.tfNome = tfNome;
     }
 
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+    private void btnCancelarActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         dispose();
         Login login = new Login();
         login.setLocationRelativeTo(null);
         login.setVisible(true);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        String Nome = tfNome.getText(); 
-        String Cpf = tfCpf.getText();
-        String RG = tfRG.getText();
-        String DtNasc = tfDtNascimento.getText();
-        String Conta = tfConta.getText();
-        String Login = tfLogin.getText();
-        String Senha = this.pfSenha.getText();
-        String msg = "2 "+Nome+" "+Cpf+" "+RG+" "+DtNasc+" "+Conta+" "+Login+" "+Senha;
-        String resposta = "";
-        Socket socket = null;
-        int servidor = 1 + (int)(Math.random() *3);
-        System.out.println(servidor);
-        boolean valida = true;
-
-        if(Nome.equals("")||Nome.equals(" ")){
-            JOptionPane.showMessageDialog(null, "Campo Nome em branco.", "Erro!", JOptionPane.OK_OPTION);
-            valida = false;
+    private void btnCadastrarActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        
+    	Cliente cliente = new Cliente();
+    	cliente.setNome(tfNome.getText()); 
+        cliente.setCpf(tfCpf.getText());
+        cliente.setRg(tfRG.getText());
+        cliente.setDataNasc(tfDtNascimento.getText());
+        cliente.setNumConta(tfConta.getText());
+        cliente.setLogin(tfLogin.getText());
+        cliente.setSenha(new String(pfSenha.getPassword()));
+        
+//    	String Cpf = tfCpf.getText();
+//        String RG = tfRG.getText();
+//        String DtNasc = tfDtNascimento.getText();
+//        String Conta = tfConta.getText();
+//        String Login = tfLogin.getText();
+//        String Senha = new String(pfSenha.getPassword());
+        
+        ClienteController controller = new ClienteController(LoginView.servidorA);
+        
+        try
+        {
+        	controller.cadastraCliente(cliente);
+        
+        	
+        	JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!", "", JOptionPane.OK_OPTION);
+        	dispose();
+        	
+            Login login = new Login();
+            login.setLocationRelativeTo(null);
+            login.setVisible(true);
+            
+        } catch ( CadastroIncompletoException exc ){
+        	exibeDialogErro(exc.getMessage());
+//        	JOptionPane.showMessageDialog(null, exc.getMessage(), "Erro!", JOptionPane.OK_OPTION);
+        } catch ( ErroCadastroException exc ){
+        	exibeDialogErro(exc.getMessage());
+//        	JOptionPane.showMessageDialog(null, exc.getMessage(), "Erro!", JOptionPane.OK_OPTION);
+        } catch ( ConexaoException exc ){
+        	exibeDialogErro(exc.getMessage());
+//        	JOptionPane.showMessageDialog(null, exc.getMessage(), "Erro!", JOptionPane.OK_OPTION);
         }
-        if(Cpf.equals("")||Cpf.equals(" ")){
-            JOptionPane.showMessageDialog(null, "Campo CPF em branco.", "Erro!", JOptionPane.OK_OPTION);
-            valida = false;
-        }
-        if(RG.equals("")||RG.equals(" ")){
-            JOptionPane.showMessageDialog(null, "Campo RG em branco.", "Erro!", JOptionPane.OK_OPTION);
-            valida = false;
-        }
-        if(DtNasc.equals("")||DtNasc.equals(" ")){
-            JOptionPane.showMessageDialog(null, "Campo Data de nascimento em branco.", "Erro!", JOptionPane.OK_OPTION);
-            valida = false;
-        }
-        if(Conta.equals("")||Conta.equals(" ")){
-            JOptionPane.showMessageDialog(null, "Campo Nº da Conta em branco.", "Erro!", JOptionPane.OK_OPTION);
-            valida = false;
-        }
-        if(Login.equals("")||Login.equals(" ")){
-            JOptionPane.showMessageDialog(null, "Campo Login em branco.", "Erro!", JOptionPane.OK_OPTION);
-            valida = false;
-        }
-        if(Senha.equals("")||Senha.equals(" ")){
-            JOptionPane.showMessageDialog(null, "Campo Senha em branco.", "Erro!", JOptionPane.OK_OPTION);
-            valida = false;
-        }
-        if(valida = true){
-        try {
-            //Abrindo conexão
-            int serverPort = 1001;
-            switch (servidor){
-                case 1:{socket = new Socket(banco.cliente.deprecated.Login.servidorA.toString(), serverPort);
-                        break;
-                }
-                case 2:{socket = new Socket(banco.cliente.deprecated.Login.servidorB.toString(), serverPort);
-                        break;
-                }
-                case 3:{socket = new Socket(banco.cliente.deprecated.Login.servidorC.toString(), serverPort);
-                        break;
-                }
-                default:JOptionPane.showMessageDialog(null, "Falha no servidor!", "Erro!", JOptionPane.ERROR_MESSAGE);
-            }
-            ObjectOutputStream saida = new ObjectOutputStream(socket.getOutputStream());
-            saida.writeObject(msg);
-            saida.flush();
-            ObjectInputStream entrada = new ObjectInputStream(socket.getInputStream());
-            entrada.read();
-            resposta = entrada.toString();
-            if (resposta.equals("0")){
-                JOptionPane.showMessageDialog(null, "Falha ao efetuar cadastro.", "Erro!", JOptionPane.ERROR_MESSAGE);
-            }else if(resposta.equals("1")){
-                JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!", "", JOptionPane.OK_OPTION);
-                dispose();
-                Login login = new Login();
-                login.setLocationRelativeTo(null);
-                login.setVisible(true);
-            }
-        }catch (UnknownHostException e){
-            JOptionPane.showMessageDialog(null, "Sock:"+e.getMessage(), "Erro!", JOptionPane.ERROR_MESSAGE);
-            //System.out.println("Sock:"+e.getMessage());
-        }catch (EOFException e){
-            JOptionPane.showMessageDialog(null, "EOF:"+e.getMessage(), "Erro!", JOptionPane.ERROR_MESSAGE);
-            //System.out.println("EOF:"+e.getMessage());
-        }catch (IOException e){
-            JOptionPane.showMessageDialog(null, "IO:"+e.getMessage(), "Erro!", JOptionPane.ERROR_MESSAGE);
-            //System.out.println("IO:"+e.getMessage());
-        } finally {
-            if(socket!=null)
-            try {
-                socket.close();
-            }
-            catch (IOException e){
-                JOptionPane.showMessageDialog(null, "Close:"+e.getMessage(), "Erro!", JOptionPane.ERROR_MESSAGE);
-                //System.out.println("close:"+e.getMessage());
-            }
-        }// try
-      }
+        
+        
+//        String msg = "2 "+Nome+" "+Cpf+" "+RG+" "+DtNasc+" "+Conta+" "+Login+" "+Senha;
+//        String resposta = "";
+//        Socket socket = null;
+//        int servidor = 1 + (int)(Math.random() *3);
+//        System.out.println(servidor);
+//        boolean valida = true;
+//
+//        if(Nome.equals("")||Nome.equals(" ")){
+//            JOptionPane.showMessageDialog(null, "Campo Nome em branco.", "Erro!", JOptionPane.OK_OPTION);
+//            valida = false;
+//        }
+//        if(Cpf.equals("")||Cpf.equals(" ")){
+//            JOptionPane.showMessageDialog(null, "Campo CPF em branco.", "Erro!", JOptionPane.OK_OPTION);
+//            valida = false;
+//        }
+//        if(RG.equals("")||RG.equals(" ")){
+//            JOptionPane.showMessageDialog(null, "Campo RG em branco.", "Erro!", JOptionPane.OK_OPTION);
+//            valida = false;
+//        }
+//        if(DtNasc.equals("")||DtNasc.equals(" ")){
+//            JOptionPane.showMessageDialog(null, "Campo Data de nascimento em branco.", "Erro!", JOptionPane.OK_OPTION);
+//            valida = false;
+//        }
+//        if(Conta.equals("")||Conta.equals(" ")){
+//            JOptionPane.showMessageDialog(null, "Campo Nº da Conta em branco.", "Erro!", JOptionPane.OK_OPTION);
+//            valida = false;
+//        }
+//        if(Login.equals("")||Login.equals(" ")){
+//            JOptionPane.showMessageDialog(null, "Campo Login em branco.", "Erro!", JOptionPane.OK_OPTION);
+//            valida = false;
+//        }
+//        if(Senha.equals("")||Senha.equals(" ")){
+//            JOptionPane.showMessageDialog(null, "Campo Senha em branco.", "Erro!", JOptionPane.OK_OPTION);
+//            valida = false;
+//        }
+//        if(valida = true){
+//        try {
+//            //Abrindo conexão
+//            int serverPort = 1001;
+//            switch (servidor){
+//                case 1:{socket = new Socket(banco.cliente.deprecated.Login.servidorA.toString(), serverPort);
+//                        break;
+//                }
+//                case 2:{socket = new Socket(banco.cliente.deprecated.Login.servidorB.toString(), serverPort);
+//                        break;
+//                }
+//                case 3:{socket = new Socket(banco.cliente.deprecated.Login.servidorC.toString(), serverPort);
+//                        break;
+//                }
+//                default:JOptionPane.showMessageDialog(null, "Falha no servidor!", "Erro!", JOptionPane.ERROR_MESSAGE);
+//            }
+//            ObjectOutputStream saida = new ObjectOutputStream(socket.getOutputStream());
+//            saida.writeObject(msg);
+//            saida.flush();
+//            ObjectInputStream entrada = new ObjectInputStream(socket.getInputStream());
+//            entrada.read();
+//            resposta = entrada.toString();
+//            if (resposta.equals("0")){
+//                JOptionPane.showMessageDialog(null, "Falha ao efetuar cadastro.", "Erro!", JOptionPane.ERROR_MESSAGE);
+//            }else if(resposta.equals("1")){
+//                JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!", "", JOptionPane.OK_OPTION);
+//                dispose();
+//                Login login = new Login();
+//                login.setLocationRelativeTo(null);
+//                login.setVisible(true);
+//            }
+//        }catch (UnknownHostException e){
+//            JOptionPane.showMessageDialog(null, "Sock:"+e.getMessage(), "Erro!", JOptionPane.ERROR_MESSAGE);
+//            //System.out.println("Sock:"+e.getMessage());
+//        }catch (EOFException e){
+//            JOptionPane.showMessageDialog(null, "EOF:"+e.getMessage(), "Erro!", JOptionPane.ERROR_MESSAGE);
+//            //System.out.println("EOF:"+e.getMessage());
+//        }catch (IOException e){
+//            JOptionPane.showMessageDialog(null, "IO:"+e.getMessage(), "Erro!", JOptionPane.ERROR_MESSAGE);
+//            //System.out.println("IO:"+e.getMessage());
+//        } finally {
+//            if(socket!=null)
+//            try {
+//                socket.close();
+//            }
+//            catch (IOException e){
+//                JOptionPane.showMessageDialog(null, "Close:"+e.getMessage(), "Erro!", JOptionPane.ERROR_MESSAGE);
+//                //System.out.println("close:"+e.getMessage());
+//            }
+//        }// try
+//      }
     }//GEN-LAST:event_btnCadastrarActionPerformed
+
+	private void exibeDialogErro(String message) {
+		JOptionPane.showMessageDialog(null, message, "Erro!", JOptionPane.OK_OPTION);
+	}
 
    
 

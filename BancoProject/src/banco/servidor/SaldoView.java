@@ -9,11 +9,13 @@
  * Created on 07/09/2010, 15:01:09
  */
 
-package banco.cliente;
+package banco.servidor;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.*;
+
+import banco.cliente.util.CliThread;
 
 public class SaldoView extends JFrame {
 

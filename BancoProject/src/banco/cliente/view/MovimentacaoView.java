@@ -9,17 +9,19 @@
  * Created on 05/09/2010, 16:40:07
  */
 
-package banco.cliente;
+package banco.cliente.view;
 
 import javax.swing.*;
+import java.awt.event.*;
 
+import banco.cliente.util.CliThread;
 import banco.cliente.util.TipoComando;
 
 /**
  *
  * @author usuariio
  */
-public class Movimento extends JFrame {
+public class MovimentacaoView extends JFrame {
 
     private JButton btnCancelar;
     private JButton btnConfirmar;
@@ -34,7 +36,7 @@ public class Movimento extends JFrame {
     private JTextField tfValor;
 	
     /** Creates new form Saque */
-    public Movimento() {
+    public MovimentacaoView() {
         initComponents();
         lbNome2.setText(banco.cliente.deprecated.Login.cliNome.toString());
         String mesg = "6 ";
@@ -76,15 +78,15 @@ public class Movimento extends JFrame {
         lbValor.setText("Valor: ");
 
         btnConfirmar.setText("Confirmar");
-        btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnConfirmar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 btnConfirmarActionPerformed(evt);
             }
         });
 
         btnCancelar.setText("Cancelar");
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnCancelar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
             }
         });
@@ -184,12 +186,12 @@ public class Movimento extends JFrame {
         this.tfValor = tfValor;
     }
 
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+    private void btnCancelarActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     String msg = "";
-    private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+    private void btnConfirmarActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         boolean valida = true;
         if(tfValor.toString().equals("")||tfValor.toString().equals(" ")){
             JOptionPane.showMessageDialog(null, "Campo Valor em branco.", "Erro!", JOptionPane.OK_OPTION);

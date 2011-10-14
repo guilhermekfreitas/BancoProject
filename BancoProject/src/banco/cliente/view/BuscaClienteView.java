@@ -9,18 +9,20 @@
  * Created on 17/09/2010, 23:22:02
  */
 
-package banco.cliente;
+package banco.cliente.view;
 
 import javax.swing.JOptionPane;
+
+import banco.cliente.util.CliThread;
 
 /**
  *
  * @author usuariio
  */
-public class BuscaCliente extends javax.swing.JFrame {
+public class BuscaClienteView extends javax.swing.JFrame {
 
     /** Creates new form BuscaCliente */
-    public BuscaCliente() {
+    public BuscaClienteView() {
         initComponents();
     }
 

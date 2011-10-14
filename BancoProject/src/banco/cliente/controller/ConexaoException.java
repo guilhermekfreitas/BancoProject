@@ -1,4 +1,6 @@
-package banco.cliente.refactoring;
+package banco.cliente.controller;
+
+import java.net.UnknownHostException;
 
 public class ConexaoException extends RuntimeException {
 
@@ -8,6 +10,10 @@ public class ConexaoException extends RuntimeException {
 	
 	public ConexaoException(String message) {
 		super(message);
+	}
+
+	public ConexaoException(String mensagem, Exception e) {
+		super(mensagem, e);
 	}
 
 	/**

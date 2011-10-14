@@ -9,15 +9,18 @@
  * Created on 05/09/2010, 15:34:11
  */
 
-package banco.cliente;
+package banco.cliente.view;
 
 import javax.swing.*;
+
+import banco.servidor.SaldoView;
+
 import java.awt.event.*;
 /**
  *
  * @author usuariio
  */
-public class Principal extends JFrame {
+public class PrincipalView extends JFrame {
 
     private JMenu MenuArquivo;
     private JMenuItem MenuBusca;
@@ -31,7 +34,7 @@ public class Principal extends JFrame {
     private JMenuItem MenuSaldo;
     
     /** Creates new form Principal */
-    public Principal() {
+    public PrincipalView() {
         initComponents();
         if(!banco.cliente.deprecated.Login.cliServidor.equals("Administrador")){
             MenuBusca.setVisible(false);
@@ -171,13 +174,13 @@ public class Principal extends JFrame {
     }//GEN-LAST:event_MenuSaldoActionPerformed
 
     private void menuMovimentoActionPerformed(ActionEvent evt) {//GEN-FIRST:event_MenuMovimentoActionPerformed
-        Movimento mov = new Movimento();
+        MovimentacaoView mov = new MovimentacaoView();
         mov.setLocationRelativeTo(null);
         mov.setVisible(true);
     }
 
     private void menuBuscaActionPerformed(ActionEvent evt) {//GEN-FIRST:event_MenuBuscaActionPerformed
-        BuscaCliente buscaCli = new BuscaCliente();
+        BuscaClienteView buscaCli = new BuscaClienteView();
         buscaCli.setLocationRelativeTo(null);
         buscaCli.setVisible(true);
     }//GEN-LAST:event_MenuBuscaActionPerformed

@@ -16,8 +16,8 @@ import javax.swing.JTextField;
 import java.net.*;
 import javax.swing.JOptionPane;
 
-import banco.cliente.CadCliente;
-import banco.cliente.Principal;
+import banco.cliente.view.CadClienteView;
+import banco.cliente.view.PrincipalView;
 
 
 
@@ -180,7 +180,7 @@ public class Login extends javax.swing.JFrame {
             cliNome = "Administrador";
             cliSaldo = "R$ 0,00";
             dispose();
-            Principal programa = new Principal();
+            PrincipalView programa = new PrincipalView();
             programa.setLocationRelativeTo(null);
             programa.setVisible(true);
          }else{
@@ -224,7 +224,7 @@ public class Login extends javax.swing.JFrame {
                     }
                 }
                 dispose();
-                Principal programa = new Principal();
+                PrincipalView programa = new PrincipalView();
                 programa.setLocationRelativeTo(null);
                 programa.setVisible(true);
             }else if (!respostaB.equals("0")){
@@ -254,7 +254,7 @@ public class Login extends javax.swing.JFrame {
                     }
                 }
                 dispose();
-                Principal programa = new Principal();
+                PrincipalView programa = new PrincipalView();
                 programa.setLocationRelativeTo(null);
                 programa.setVisible(true);
             }else if (!respostaC.equals("0")){
@@ -284,7 +284,7 @@ public class Login extends javax.swing.JFrame {
                     }
                 }
                 dispose();
-                Principal programa = new Principal();
+                PrincipalView programa = new PrincipalView();
                 programa.setLocationRelativeTo(null);
                 programa.setVisible(true);
             }else{
@@ -299,7 +299,7 @@ public class Login extends javax.swing.JFrame {
 
     private void lbCliqueAquiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbCliqueAquiMouseClicked
         dispose();
-        CadCliente cad = new CadCliente();
+        CadClienteView cad = new CadClienteView();
         cad.setLocationRelativeTo(null);
         cad.setVisible(true);
     }//GEN-LAST:event_lbCliqueAquiMouseClicked

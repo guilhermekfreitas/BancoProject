@@ -1,12 +1,11 @@
-package banco.cliente.refactoring;
+package banco.cliente.view;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-import banco.cliente.CadCliente;
-import banco.cliente.CliThread;
-import banco.cliente.Principal;
+import banco.cliente.controller.ConexaoException;
+import banco.cliente.controller.LoginOuSenhaInvalidoException;
 import banco.cliente.deprecated.Login;
 import banco.cliente.modelo.Administrador;
 import banco.cliente.modelo.Cliente;
@@ -14,25 +13,17 @@ import banco.cliente.modelo.Servidor;
 import banco.cliente.modelo.conexao.ConexaoServerImpl;
 import banco.cliente.modelo.conexao.ConexaoServidor;
 import banco.cliente.modelo.conexao.ConexaoServidorProxy;
+import banco.cliente.util.CliThread;
+import banco.cliente.util.SessaoApp;
 import banco.cliente.util.TipoComando;
 
 public class LoginView {
 
 	public static Servidor servidorA = new Servidor("Servidor A", "192.168.1.104", 4446);
-	public static Servidor servidorB = new Servidor("Servidor B", "127.0.0.1", 4446);
-	public static Servidor servidorC = new Servidor("Servidor C", "127.0.0.1", 4446);
-
-	//Configurar o IP Conforme os servidores
-	//	public static String servidorA = "127.0.0.1";
-	//	public static String servidorB = "127.0.0.1";
-	//	public static String servidorC = "127.0.0.1";
-
+//	public static Servidor servidorB = new Servidor("Servidor B", "127.0.0.1", 4446);
+//	public static Servidor servidorC = new Servidor("Servidor C", "127.0.0.1", 4446);
+	
 	public static Cliente cliente = new Cliente();
-
-	//	public static String numConta = "";
-	//	public static String cliNome = "";
-	//	public static String cliSaldo = "";
-	//	public static String cliServidor = "";
 
 	private JLabel lbLogin;
 	private JLabel lbSenha;
@@ -44,8 +35,11 @@ public class LoginView {
 	private JPasswordField tfSenha;
 	private JFrame frame;
 
-	public LoginView(){
+	private Servidor servidor;
+	
+	public LoginView(SessaoApp sessao){
 		iniciaComponentes();
+		this.servidor = sessao.getServidor();
 		start();
 	}
 
@@ -162,7 +156,7 @@ public class LoginView {
 		private void abreTelaCadastro() {
 			// TODO Auto-generated method stub
 			frame.dispose();
-			CadCliente cad = new CadCliente(); // inicia cadastro de cliente
+			CadClienteView cad = new CadClienteView(); // inicia cadastro de cliente
 			cad.setLocationRelativeTo(null);
 			cad.setVisible(true);
 		}
@@ -186,12 +180,8 @@ public class LoginView {
 
 				if (isAdmin(login, senha)){
 					cliente = new Administrador();
-					//				cliServidor = "Administrador";
-					//				numConta = "---";
-					//				cliNome = "Administrador";
-					//				cliSaldo = "R$ 0,00";
 					frame.dispose();
-					Principal programa = new Principal();
+					PrincipalView programa = new PrincipalView();
 					programa.setLocationRelativeTo(null);
 					programa.setVisible(true);
 				}else{
@@ -207,36 +197,19 @@ public class LoginView {
 						JOptionPane.showMessageDialog(null, exc.getMessage(), "Erro!", JOptionPane.ERROR_MESSAGE);
 						return;
 					}
-					//					ConexaoServidor B = new ConexaoServidorProxy();
-					//					String respostaB = B.comunicaServidor(msgEnvio, servidorB);
-					//
-					//					ConexaoServidor C = new ConexaoServidorProxy();
-					//					String respostaC = C.comunicaServidor(msgEnvio, servidorC);
 
 					if (!respostaA.equals("0")){
 						cliente.setCliServidor(servidorA.getEnderecoIP());
 						//					cliServidor = servidorA.toString();
 						preencheCliente(respostaA);
 						frame.dispose();
-						Principal programa = new Principal();
+						
+						SessaoApp.getSessaoApp().setUsuarioLogado(cliente);
+						
+						PrincipalView programa = new PrincipalView();
 						programa.setLocationRelativeTo(null);
 						programa.setVisible(true);
 					}
-					//					else if (!respostaB.equals("0")){
-					//						cliente.setCliServidor(servidorB.getEnderecoIP());
-					//						preencheCliente(respostaB);
-					//						frame.dispose();
-					//						Principal programa = new Principal();
-					//						programa.setLocationRelativeTo(null);
-					//						programa.setVisible(true);
-					//					}else if (!respostaC.equals("0")){
-					//						cliente.setCliServidor(servidorC.getEnderecoIP());
-					//						preencheCliente(respostaC);
-					//						frame.dispose();
-					//						Principal programa = new Principal();
-					//						programa.setLocationRelativeTo(null);
-					//						programa.setVisible(true);
-					//					}
 					else{
 						JOptionPane.showMessageDialog(null, "Usuário não cadastrado!", "Erro!", JOptionPane.ERROR_MESSAGE);
 					}
@@ -263,13 +236,6 @@ public class LoginView {
 				throw new LoginOuSenhaInvalidoException("Campo Login e/ou Senha está em branco.");
 				//JOptionPane.showMessageDialog(null, , "Erro!", JOptionPane.OK_OPTION);
 			}
-
-			//			if (login.equals("")|| login.equals(" ")){
-			//				JOptionPane.showMessageDialog(null, "Campo Login em branco.", "Erro!", JOptionPane.OK_OPTION);
-			//			}
-			//			if (senha.equals("")||senha.equals(" ")){
-			//				JOptionPane.showMessageDialog(null, "Campo Senha em branco.", "Erro!", JOptionPane.OK_OPTION);
-			//			}
 		}
 
 		private String gerarMsgEnvio(String login, String senha) {
@@ -278,8 +244,6 @@ public class LoginView {
 
 
 		private void preencheCliente(String respostaServidor) {
-
-			System.out.println("DECODIFICANDO: " + respostaServidor);
 
 			int tam = respostaServidor.length();
 			char palavra[]=respostaServidor.toCharArray();
