@@ -15,7 +15,7 @@ class UDPClient
                         new BufferedReader(new InputStreamReader(System.in));
                         
       DatagramSocket client_socket = new DatagramSocket();
-      client_socket.setSoTimeout(500);
+      client_socket.setSoTimeout(2000);
       
       InetAddress IPAddress =  InetAddress.getByName("192.168.1.103");
       

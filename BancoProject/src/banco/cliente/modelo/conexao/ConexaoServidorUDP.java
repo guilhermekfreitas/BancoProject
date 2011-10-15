@@ -12,6 +12,7 @@ import java.net.UnknownHostException;
 
 import banco.cliente.controller.ConexaoException;
 import banco.cliente.modelo.Servidor;
+import banco.cliente.util.SessaoApp;
 
 public class ConexaoServidorUDP implements ConexaoServidor {
 
@@ -19,17 +20,23 @@ public class ConexaoServidorUDP implements ConexaoServidor {
 	private Servidor servidor;
 
 	public ConexaoServidorUDP(DatagramSocket socket, Servidor servidor) {
+		
 		this.client_socket = socket;
 		this.servidor = servidor;
-		
-		try {
-			client_socket = new DatagramSocket();
-			client_socket.setSoTimeout(500);
-		} catch (SocketException e) {
-			throw new ConexaoException("Não foi possível conectar-se com: " + servidor, e);
-		}
+//		
+//		try {
+//			client_socket = new DatagramSocket();
+//			client_socket.setSoTimeout(500);
+//		} catch (SocketException e) {
+//			throw new ConexaoException("Não foi possível conectar-se com: " + servidor, e);
+//		}
 	}
 	
+	public ConexaoServidorUDP(SessaoApp sessaoApp) {
+		this.client_socket = sessaoApp.getSocket();
+		this.servidor = sessaoApp.getServidor();
+	}
+
 	@Override
 	public String comunicaServidor(String msg, Servidor servidor2)
 			throws ConexaoException {

@@ -1,5 +1,10 @@
 package banco.cliente;
 
+import java.net.DatagramSocket;
+import java.net.SocketException;
+
+import javax.swing.JOptionPane;
+
 import banco.cliente.modelo.Servidor;
 import banco.cliente.util.SessaoApp;
 import banco.cliente.view.LoginView;
@@ -17,7 +22,17 @@ public class ClienteMain {
 		Servidor servidor = new Servidor("Servidor A", "192.168.1.103", 5000);
 		sessao.setServidor(servidor);
 		
-		LoginView loginForm = new LoginView(sessao);
+		DatagramSocket client_socket;
+		try {
+			client_socket = new DatagramSocket();
+			client_socket.setSoTimeout(500);
+
+			sessao.setSocket(client_socket);
+			LoginView loginForm = new LoginView(sessao);
+		} catch (SocketException e) {
+			JOptionPane.showMessageDialog(null, "Não foi possivel contactar o servidor!", "Erro!", JOptionPane.ERROR_MESSAGE);
+		}
+		
 		// testing
 	} 
 	

@@ -192,8 +192,8 @@ public class LoginView {
 					{
 						// deve passar um socket aqui
 //						ConexaoServidor conexaoServidor = new ConexaoServerImpl(null);
-						Servidor servidor = SessaoApp.getSessaoApp().getServidor();
-						ConexaoServidor conexaoServidor = new ConexaoServidorUDP(null,servidor);
+						SessaoApp sessaoApp = SessaoApp.getSessaoApp();
+						ConexaoServidor conexaoServidor = new ConexaoServidorUDP(sessaoApp);
 						respostaA = conexaoServidor.comunicaServidor(msgEnvio, null);
 						System.out.println("Resposta do servidor:" + respostaA);
 
@@ -202,6 +202,11 @@ public class LoginView {
 						return;
 					}
 
+					if (respostaA.trim().equals(TipoComando.ERRO.getComando())){
+						JOptionPane.showMessageDialog(null, "Usuário não cadastrado!", "Erro!", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					
 					if (!respostaA.equals("0")){
 						cliente.setCliServidor(servidorA.getEnderecoIP());
 						//					cliServidor = servidorA.toString();
@@ -243,7 +248,9 @@ public class LoginView {
 		}
 
 		private String gerarMsgEnvio(String login, String senha) {
-			return TipoComando.SAQUE + " "+ login + " " + senha;
+			String msg = TipoComando.LOGIN + " ";
+			msg += String.format("select * from clientes where login='%s' and senha='%s'", login,senha);
+			return msg;
 		}
 
 
