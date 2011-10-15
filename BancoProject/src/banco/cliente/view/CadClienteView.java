@@ -16,7 +16,7 @@ import java.net.*;
 import javax.swing.*;
 import java.awt.event.*;
 
-import banco.cliente.controller.CadastroIncompletoException;
+import banco.cliente.controller.DadosIncompletosException;
 import banco.cliente.controller.ClienteController;
 import banco.cliente.controller.ConexaoException;
 import banco.cliente.controller.ErroCadastroException;
@@ -277,7 +277,7 @@ public class CadClienteView extends JFrame {
 //            login.setLocationRelativeTo(null);
 //            login.setVisible(true);
             
-        } catch ( CadastroIncompletoException exc ){
+        } catch ( DadosIncompletosException exc ){
         	exibeDialogErro(exc.getMessage());
 //        	JOptionPane.showMessageDialog(null, exc.getMessage(), "Erro!", JOptionPane.OK_OPTION);
         } catch ( ErroCadastroException exc ){

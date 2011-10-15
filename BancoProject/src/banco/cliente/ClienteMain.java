@@ -19,13 +19,13 @@ public class ClienteMain {
 		
 		SessaoApp sessao = SessaoApp.getSessaoApp();
 		
-		Servidor servidor = new Servidor("Servidor A", "192.168.1.103", 5000);
+		Servidor servidor = new Servidor("Servidor Default", "192.168.1.103", 5000);
 		sessao.setServidor(servidor);
 		
 		DatagramSocket client_socket;
 		try {
 			client_socket = new DatagramSocket();
-			client_socket.setSoTimeout(500);
+			client_socket.setSoTimeout(1000);
 
 			sessao.setSocket(client_socket);
 			LoginView loginForm = new LoginView(sessao);

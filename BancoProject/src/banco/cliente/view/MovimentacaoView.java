@@ -64,6 +64,7 @@ public class MovimentacaoView extends JFrame {
 		}
         
 		lbSaldo2.setText(saldo);
+		cliente.setSaldo(saldo);
         
 //        String mesg = "6 ";
 //        mesg.concat(banco.cliente.deprecated.Login.cliConta);
@@ -228,29 +229,42 @@ public class MovimentacaoView extends JFrame {
 
     private void btnConfirmarActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         
-        String mensagem = "";
+        String msgAlterarSaldo = "";
         
         String valor = tfValor.getText().trim();
         if(!isValido(valor)){
             JOptionPane.showMessageDialog(null, "Campo Valor em branco.", "Erro!", JOptionPane.OK_OPTION);
         }else {
             String tipoMov = jComboBox1.getSelectedItem().equals("Saque") ? "Saque" : "Deposito";
-            mensagem = geraMsgMovimentacao(tipoMov,valor);
+            msgAlterarSaldo = geraMsgAlteraSaldo(tipoMov,valor);
             
             String resposta = null;
             ConexaoServidor conexao = new ConexaoServidorUDP(SessaoApp.getSessaoApp());
             try {
-                resposta = conexao.comunicaServidor(mensagem, null);
-            	System.out.println("Respota do servidor: " + resposta);
+                
+            	resposta = conexao.comunicaServidor(msgAlterarSaldo, null);
+            	System.out.println("Resposta do servidor: " + resposta);
+            
+            	if (resposta.equals(TipoComando.ERRO.getComando())){
+    				JOptionPane.showMessageDialog(null, "Falha na Operação!", "Erro!", JOptionPane.ERROR_MESSAGE);
+    				return;
+    			}
+            	
+            	String msgAddMovimentacao = geraAddMovimentacao(tipoMov,valor);
+            	resposta = conexao.comunicaServidor(msgAddMovimentacao, null);
+            	System.out.println("Resposta do servidor: " + resposta);
+            
+            	if (resposta.equals(TipoComando.ERRO.getComando())){
+    				JOptionPane.showMessageDialog(null, "Falha na Operação!", "Erro!", JOptionPane.ERROR_MESSAGE);
+    				return;
+    			}
+            
             } catch (ConexaoException exc){
     			JOptionPane.showMessageDialog(null, "Falha na Operação" + exc.getMessage(), "Erro!", JOptionPane.ERROR_MESSAGE);
     			return;
     		}
             
-            if (resposta.equals(TipoComando.ERRO.getComando())){
-				JOptionPane.showMessageDialog(null, "Falha na Operação!", "Erro!", JOptionPane.ERROR_MESSAGE);
-				return;
-			}
+            
             
             JOptionPane.showMessageDialog(null, "Operação realizada com sucesso!", "", JOptionPane.INFORMATION_MESSAGE);
             dispose();
@@ -258,7 +272,22 @@ public class MovimentacaoView extends JFrame {
         }
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
-	private String geraMsgMovimentacao(String tipo, String valor) {
+	private String geraAddMovimentacao(String tipoMov, String valor) {
+		String msg = TipoComando.ADD_MOVIMENTACAO + " ";
+		
+		String val = "";
+		if (tipoMov.equals("Saque")){
+			val = "-" + valor;
+		} else {
+			val = "+" + valor;
+		}
+		
+		msg += String.format("insert into movimentacoes (idconta,tipo,valor,saldoanterior) values (%s,'%s',%s,%s)",
+							cliente.getNumConta(),tipoMov,val,cliente.getSaldo());
+		return msg;
+	}
+
+	private String geraMsgAlteraSaldo(String tipo, String valor) {
 		
 		String msg = TipoComando.DEPOSITO_SAQUE + " ";
 		

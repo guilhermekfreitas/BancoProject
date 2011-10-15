@@ -1,10 +1,10 @@
 package banco.cliente.controller;
 
-public class CadastroIncompletoException extends RuntimeException {
+public class DadosIncompletosException extends RuntimeException {
 
 	
 	
-	public CadastroIncompletoException(String message) {
+	public DadosIncompletosException(String message) {
 		super(message);
 	}
 

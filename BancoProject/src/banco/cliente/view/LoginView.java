@@ -16,6 +16,7 @@ import banco.cliente.modelo.conexao.ConexaoServerImpl;
 import banco.cliente.modelo.conexao.ConexaoServidor;
 import banco.cliente.modelo.conexao.ConexaoServidorProxy;
 import banco.cliente.modelo.conexao.ConexaoServidorUDP;
+import banco.cliente.modelo.conexao.ServidorIndisponivelException;
 import banco.cliente.util.CliThread;
 import banco.cliente.util.SessaoApp;
 import banco.cliente.util.TipoComando;
@@ -37,6 +38,7 @@ public class LoginView {
 	private JButton botaoCancelar;
 	private JPasswordField tfSenha;
 	private JFrame frame;
+	private JButton botaoConfiguracao;
 
 	private Servidor servidor;
 	
@@ -59,12 +61,27 @@ public class LoginView {
 		lbCliqueAqui = new JLabel();
 		botaoOk = new JButton();
 		botaoCancelar = new JButton();
+		botaoConfiguracao = new JButton("Ver configurações do servidor");
 		tfSenha = new JPasswordField();
 
 		frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		frame.setTitle("Login");
 
+		JMenuBar menuBar = new JMenuBar();
+		
+		JMenu menu = new JMenu("Arquivo");
+		JMenuItem menuItem = new JMenuItem("Configurações de Servidor");
+		menuItem.addActionListener(new ConfiguracoesServidorActionListener());
+		
+		menu.add(menuItem);
+		
+		menuBar.add(menu);
+		
+		frame.setJMenuBar(menuBar);
+		
+		
+		
 		lbLogin.setText("Login: ");
 		lbSenha.setText("Senha: ");
 		lbcadastro.setText("Se não possui um cadastro ");
@@ -147,6 +164,7 @@ public class LoginView {
 			public void run() {
 				//				new Login().setVisible(true);]
 				frame.setVisible(true);
+				frame.setLocationRelativeTo(null);
 			}
 		});
 	}
@@ -201,6 +219,9 @@ public class LoginView {
 
 					} catch (ConexaoException exc){
 						JOptionPane.showMessageDialog(null, exc.getMessage(), "Erro!", JOptionPane.ERROR_MESSAGE);
+						return;
+					} catch (ServidorIndisponivelException exc){
+						JOptionPane.showMessageDialog(null, exc.getMessage() + "Verifique se os dados do servidor estão corretos!", "Erro!", JOptionPane.ERROR_MESSAGE);
 						return;
 					}
 
@@ -313,6 +334,19 @@ public class LoginView {
 			System.exit(0);
 		}
 	} 
+
+	private final class ConfiguracoesServidorActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent evt) {
+			ConfiguracaoServidorView configuracaoServidorView = new ConfiguracaoServidorView();
+			
+		}
+
+		private void fechaAplicativo() {
+			System.exit(0);
+		}
+	} 
+	
+	
 
 }
 

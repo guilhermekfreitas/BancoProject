@@ -26,7 +26,7 @@ public class ClienteController {
 	}
 
 	public void cadastraCliente(Cliente cliente)
-			throws CadastroIncompletoException, ErroCadastroException, ConexaoException {
+			throws DadosIncompletosException, ErroCadastroException, ConexaoException {
 
 		validaCliente(cliente);
 
@@ -116,7 +116,7 @@ public class ClienteController {
 	}
 
 	private void validaCliente(Cliente cliente)	
-			throws CadastroIncompletoException {
+			throws DadosIncompletosException {
 		boolean valida = true;
 
 		if (isInvalido(cliente.getNome())){
@@ -145,7 +145,7 @@ public class ClienteController {
 		}
 
 		if (!valida)
-			throw new CadastroIncompletoException("Campo(s) não foram preenchidos corretamente!");
+			throw new DadosIncompletosException("Campo(s) não foram preenchidos corretamente!");
 
 	}
 

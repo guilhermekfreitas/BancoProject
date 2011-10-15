@@ -48,28 +48,11 @@ public class ConexaoServidorUDP implements ConexaoServidor {
 		
 		byte[] send_data = new byte[1024];
 
-//		BufferedReader infromuser = 
-//				new BufferedReader(new InputStreamReader(System.in));
-
-//		DatagramSocket client_socket;
 		try {
 			
 
 			InetAddress IPAddress =  InetAddress.getByName(servidor.getEnderecoIP());
 
-//			while (true)
-//			{
-
-//				System.out.println("Type Something (q or Q to quit): ");
-
-//				String data = infromuser.readLine();
-
-//				if (data.equals("q") || data.equals("Q"))
-//					break;
-//
-//				else
-//
-//				{
 					send_data = msg.getBytes();
 
 					DatagramPacket send_packet = new DatagramPacket(send_data,
@@ -77,8 +60,6 @@ public class ConexaoServidorUDP implements ConexaoServidor {
 							IPAddress, servidor.getPorta());
 
 					client_socket.send(send_packet);
-
-//				}
 
 				byte[] dadosRecebidos = new byte[1000];
 				DatagramPacket recebido = new DatagramPacket(dadosRecebidos,dadosRecebidos.length);
@@ -96,20 +77,14 @@ public class ConexaoServidorUDP implements ConexaoServidor {
 				} catch (SocketTimeoutException exc){
 				}
 
-//			}       
-
-//			client_socket.close();
 			return resposta.trim();
 		} catch (SocketException e) {
-			e.printStackTrace();
+			throw new ServidorIndisponivelException("Servidor indisponível!",e);
 		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new ServidorIndisponivelException("Servidor indisponível!",e);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new ServidorIndisponivelException("Servidor indisponível!",e);
 		}
-		return TipoComando.ERRO.getComando();
 	}
 
 

@@ -2,7 +2,7 @@ package banco.cliente.util;
 
 public enum TipoComando {
 	// arrumar depois
-	ERRO("[0]"),SUCESSO("[1]"),LOGIN("1"),SAQ("3"),DEPOSITO_SAQUE("2"), SALDO("3"), CADASTRO("2"), SAQUE("3");
+	ERRO("[0]"),SUCESSO("[1]"),LOGIN("1"),SAQ("3"),DEPOSITO_SAQUE("2"), SALDO("3"), CADASTRO("2"), SAQUE("3"), ADD_MOVIMENTACAO("5");
 
 	TipoComando(String comando){
 		this.comando = comando;
