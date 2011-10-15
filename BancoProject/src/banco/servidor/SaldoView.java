@@ -15,7 +15,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.*;
 
+import banco.cliente.controller.ConexaoException;
+import banco.cliente.modelo.Cliente;
+import banco.cliente.modelo.conexao.ConexaoServidor;
+import banco.cliente.modelo.conexao.ConexaoServidorUDP;
 import banco.cliente.util.CliThread;
+import banco.cliente.util.SessaoApp;
+import banco.cliente.util.TipoComando;
 
 public class SaldoView extends JFrame {
 
@@ -32,17 +38,48 @@ public class SaldoView extends JFrame {
     /** Creates new form Saldo */
     public SaldoView() {
         initComponents();
-        String msg = "6 "+banco.cliente.deprecated.Login.cliConta;
-        lbConta2.setText(banco.cliente.deprecated.Login.cliConta.toString());
-        lbNome2.setText(banco.cliente.deprecated.Login.cliNome.toString());
-        CliThread saldo = new CliThread();
-        String retorno = saldo.comunicaServidor(msg, banco.cliente.deprecated.Login.cliServidor.toString());
-        lbSaldo2.setText(retorno);
-        Date dt = new Date();
+        
+        SessaoApp sessaoApp = SessaoApp.getSessaoApp();
+        Cliente cliente = sessaoApp.getUsuarioLogado();
+        
+        System.out.println("Cliente: " + cliente);
+        String msg = geraMsg(cliente.getNumConta());
+        
+        lbConta2.setText(cliente.getNumConta().toString());
+        lbNome2.setText(cliente.getNome());
+
+        String resposta = null;
+        ConexaoServidor conexao = new ConexaoServidorUDP(sessaoApp);
+        try {
+            resposta = conexao.comunicaServidor(msg, null);
+        	System.out.println("Respota do servidor: " + resposta);
+        } catch (ConexaoException exc){
+			JOptionPane.showMessageDialog(null, exc.getMessage(), "Erro!", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+        
+		lbSaldo2.setText(resposta);
+		
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        String dataHojeAsString = formato.format(dt);
+        String dataHojeAsString = formato.format(new Date());
         lbData2.setText(dataHojeAsString);
+        
+//        lbConta2.setText(banco.cliente.deprecated.Login.cliConta.toString());
+//        lbNome2.setText(banco.cliente.deprecated.Login.cliNome.toString());
+//        CliThread saldo = new CliThread();
+//        String retorno = saldo.comunicaServidor(msg, banco.cliente.deprecated.Login.cliServidor.toString());
+//        lbSaldo2.setText(retorno);
+//        Date dt = new Date();
+//        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+//        String dataHojeAsString = formato.format(dt);
+//        lbData2.setText(dataHojeAsString);
     }
+
+	private String geraMsg(String numConta) {
+		String msg = TipoComando.SALDO.getComando() + " ";
+		msg += String.format("select saldo from clientes where conta='%s'", numConta);
+		return msg;
+	}
 
     @SuppressWarnings("unchecked")
     private void initComponents() {

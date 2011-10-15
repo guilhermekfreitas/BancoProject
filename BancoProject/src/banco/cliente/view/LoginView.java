@@ -2,6 +2,8 @@ package banco.cliente.view;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.StringTokenizer;
+
 import javax.swing.*;
 
 import banco.cliente.controller.ConexaoException;
@@ -210,6 +212,7 @@ public class LoginView {
 					if (!respostaA.equals("0")){
 						cliente.setCliServidor(servidorA.getEnderecoIP());
 						//					cliServidor = servidorA.toString();
+						System.out.println("passa por aqui");
 						preencheCliente(respostaA);
 						frame.dispose();
 						
@@ -256,6 +259,17 @@ public class LoginView {
 
 		private void preencheCliente(String respostaServidor) {
 
+			StringTokenizer tokenizer = new StringTokenizer(respostaServidor);
+			
+			cliente.setNumConta(tokenizer.nextToken());
+			cliente.setNome(tokenizer.nextToken());
+			tokenizer.nextToken(); // cpf
+			tokenizer.nextToken(); // rg
+			tokenizer.nextToken(); // data
+			tokenizer.nextToken(); // login
+			tokenizer.nextToken(); // senha
+			cliente.setSaldo(tokenizer.nextToken()); // saldo
+					
 			int tam = respostaServidor.length();
 			char palavra[]=respostaServidor.toCharArray();
 			int cont = 2;
@@ -271,12 +285,12 @@ public class LoginView {
 				switch(i){
 				case 1:
 					String numConta = respostaServidor.substring(inicio, cont-1);
-					cliente.setNumConta(numConta);
+					//cliente.setNumConta(numConta);
 					cont++;
 					break;
 				case 2:
 					String cliNome = respostaServidor.substring(inicio, cont-1);
-					cliente.setNome(cliNome);
+					//cliente.setNome(cliNome);
 					cont++;
 					break;
 				case 3:

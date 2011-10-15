@@ -13,6 +13,7 @@ import java.net.UnknownHostException;
 import banco.cliente.controller.ConexaoException;
 import banco.cliente.modelo.Servidor;
 import banco.cliente.util.SessaoApp;
+import banco.cliente.util.TipoComando;
 
 public class ConexaoServidorUDP implements ConexaoServidor {
 
@@ -41,6 +42,8 @@ public class ConexaoServidorUDP implements ConexaoServidor {
 	public String comunicaServidor(String msg, Servidor servidor2)
 			throws ConexaoException {
 
+		System.out.println("MSG ===> " + msg);
+		
 		byte[] send_data = new byte[1024];
 
 //		BufferedReader infromuser = 
@@ -94,7 +97,7 @@ public class ConexaoServidorUDP implements ConexaoServidor {
 //			}       
 
 //			client_socket.close();
-			return resposta;
+			return resposta.trim();
 		} catch (SocketException e) {
 			e.printStackTrace();
 		} catch (UnknownHostException e) {
@@ -104,7 +107,7 @@ public class ConexaoServidorUDP implements ConexaoServidor {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return TipoComando.ERRO.getComando();
 	}
 
 

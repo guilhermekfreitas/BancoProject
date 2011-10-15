@@ -22,6 +22,7 @@ import banco.cliente.controller.ConexaoException;
 import banco.cliente.controller.ErroCadastroException;
 import banco.cliente.deprecated.Login;
 import banco.cliente.modelo.Cliente;
+import banco.cliente.util.SessaoApp;
 /**
  *
  * @author usuariio
@@ -267,12 +268,14 @@ public class CadClienteView extends JFrame {
         	controller.cadastraCliente(cliente);
         
         	
-        	JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!", "", JOptionPane.OK_OPTION);
+        	JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!", "", JOptionPane.INFORMATION_MESSAGE);
         	dispose();
         	
-            Login login = new Login();
-            login.setLocationRelativeTo(null);
-            login.setVisible(true);
+        	LoginView loginForm = new LoginView(SessaoApp.getSessaoApp());
+        	
+//            Login login = new Login();
+//            login.setLocationRelativeTo(null);
+//            login.setVisible(true);
             
         } catch ( CadastroIncompletoException exc ){
         	exibeDialogErro(exc.getMessage());

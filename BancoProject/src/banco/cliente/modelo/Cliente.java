@@ -3,7 +3,7 @@ package banco.cliente.modelo;
 public class Cliente {
 	
 	// converter para tipos
-	private String numConta;
+	private String numConta; // apagar
 	private String nome;
 	private String saldo;
 	private String cliServidor; // o que é isso!
@@ -90,5 +90,10 @@ public class Cliente {
 		this.cpf = cpf;
 	}
 	
+	@Override
+	public String toString() {
+		return String.format("Nome: %s Conta: %s Saldo: %s",nome,numConta,saldo);
+	}
+
 	
 }
