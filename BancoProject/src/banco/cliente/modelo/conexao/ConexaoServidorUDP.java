@@ -42,6 +42,8 @@ public class ConexaoServidorUDP implements ConexaoServidor {
 	public String comunicaServidor(String msg, Servidor servidor2)
 			throws ConexaoException {
 
+		// lançar excecao se retornasse [0]
+		
 		System.out.println("MSG ===> " + msg);
 		
 		byte[] send_data = new byte[1024];

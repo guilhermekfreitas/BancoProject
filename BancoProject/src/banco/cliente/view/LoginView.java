@@ -209,7 +209,7 @@ public class LoginView {
 						return;
 					}
 					
-					if (!respostaA.equals("0")){
+//					if (!respostaA.equals("0")){
 						cliente.setCliServidor(servidorA.getEnderecoIP());
 						//					cliServidor = servidorA.toString();
 						System.out.println("passa por aqui");
@@ -221,10 +221,10 @@ public class LoginView {
 						PrincipalView programa = new PrincipalView();
 						programa.setLocationRelativeTo(null);
 						programa.setVisible(true);
-					}
-					else{
-						JOptionPane.showMessageDialog(null, "Usuário não cadastrado!", "Erro!", JOptionPane.ERROR_MESSAGE);
-					}
+//					}
+//					else{
+//						JOptionPane.showMessageDialog(null, "Usuário não cadastrado!", "Erro!", JOptionPane.ERROR_MESSAGE);
+//					}
 				}
 
 			} catch (LoginOuSenhaInvalidoException exception ){
