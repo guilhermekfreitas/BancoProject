@@ -19,6 +19,7 @@ import banco.cliente.controller.ConexaoException;
 import banco.cliente.modelo.Cliente;
 import banco.cliente.modelo.conexao.ConexaoServidor;
 import banco.cliente.modelo.conexao.ConexaoServidorUDP;
+import banco.cliente.modelo.conexao.ServidorIndisponivelException;
 import banco.cliente.util.CliThread;
 import banco.cliente.util.SessaoApp;
 import banco.cliente.util.TipoComando;
@@ -250,6 +251,8 @@ public class MovimentacaoView extends JFrame {
     				return;
     			}
             	
+//            	Thread.sleep(500);
+            	
             	String msgAddMovimentacao = geraAddMovimentacao(tipoMov,valor);
             	resposta = conexao.comunicaServidor(msgAddMovimentacao, null);
             	System.out.println("Resposta do servidor: " + resposta);
@@ -262,7 +265,12 @@ public class MovimentacaoView extends JFrame {
             } catch (ConexaoException exc){
     			JOptionPane.showMessageDialog(null, "Falha na Operação" + exc.getMessage(), "Erro!", JOptionPane.ERROR_MESSAGE);
     			return;
-    		}
+    		} catch (ServidorIndisponivelException exc){
+    			JOptionPane.showMessageDialog(null, "Falha na Operação ->" + exc.getMessage(), "Erro!", JOptionPane.ERROR_MESSAGE);
+    			return;
+    		} /*catch (InterruptedException e) {
+				e.printStackTrace();
+			} */
             
             
             

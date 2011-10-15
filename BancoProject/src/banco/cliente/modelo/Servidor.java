@@ -22,6 +22,6 @@ public class Servidor {
 	}
 	
 	public String toString(){
-		return String.format("Servidor %s: ip:(%s) porta:(%d)", nome, enderecoIP, porta);
+		return String.format("Endereco IP:(%s) porta:(%d)", enderecoIP, porta);
 	}
 }

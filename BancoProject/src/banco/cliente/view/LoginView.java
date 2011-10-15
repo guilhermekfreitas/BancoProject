@@ -19,6 +19,7 @@ import banco.cliente.modelo.conexao.ConexaoServidorUDP;
 import banco.cliente.modelo.conexao.ServidorIndisponivelException;
 import banco.cliente.util.CliThread;
 import banco.cliente.util.SessaoApp;
+import banco.cliente.util.StatusBar;
 import banco.cliente.util.TipoComando;
 
 public class LoginView {
@@ -105,6 +106,9 @@ public class LoginView {
 
 		configuraLayout();
 
+		StatusBar statusBar = new StatusBar();
+		frame.add(statusBar, BorderLayout.SOUTH);
+		
 		frame.pack();
 
 	}
@@ -217,6 +221,9 @@ public class LoginView {
 						respostaA = conexaoServidor.comunicaServidor(msgEnvio, null);
 						System.out.println("Resposta do servidor:" + respostaA);
 
+					} catch (LoginOuSenhaInvalidoException exc){
+						JOptionPane.showMessageDialog(null, exc.getMessage(), "Erro!", JOptionPane.ERROR_MESSAGE);
+						return;
 					} catch (ConexaoException exc){
 						JOptionPane.showMessageDialog(null, exc.getMessage(), "Erro!", JOptionPane.ERROR_MESSAGE);
 						return;
