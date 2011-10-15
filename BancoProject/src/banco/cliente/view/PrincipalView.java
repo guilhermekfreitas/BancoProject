@@ -116,14 +116,14 @@ public class PrincipalView extends JFrame {
 
         MenuPrincipal.add(MenuConsulta);
 
-        MenuMovimentacoes.setText("MovimentaÃ§Ãµes");
+        MenuMovimentacoes.setText("Movimentações");
         MenuMovimentacoes.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
                 menuMovimentacoesMouseClicked(evt);
             }
         });
 
-        MenuMovimento.setText("Saque/DepÃ³sito");
+        MenuMovimento.setText("Saque/Depósito");
         MenuMovimento.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 menuMovimentoActionPerformed(evt);

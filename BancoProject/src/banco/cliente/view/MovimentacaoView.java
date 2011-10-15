@@ -91,7 +91,7 @@ public class MovimentacaoView extends JFrame {
             }
         });
 
-        jComboBox1.setModel(new DefaultComboBoxModel(new String[] { "Saque", "DepÃ³sito" }));
+        jComboBox1.setModel(new DefaultComboBoxModel(new String[] { "Saque", "Depósito" }));
 
         lbNome.setText("Nome:");
 
@@ -101,7 +101,11 @@ public class MovimentacaoView extends JFrame {
 
         lbSaldo2.setText("Saldo");
 
-        GroupLayout layout = new GroupLayout(getContentPane());
+        configuraLayout();
+    }// </editor-fold>//GEN-END:initComponents
+
+	private void configuraLayout() {
+		GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -152,7 +156,7 @@ public class MovimentacaoView extends JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+	}
 
     public JLabel getLbMovimentacao() {
         return lbMovimentacao;

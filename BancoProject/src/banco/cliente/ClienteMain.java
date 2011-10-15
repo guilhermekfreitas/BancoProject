@@ -14,7 +14,7 @@ public class ClienteMain {
 		
 		SessaoApp sessao = SessaoApp.getSessaoApp();
 		
-		Servidor servidor = new Servidor("Servidor A", "192.168.1.104", 4446);
+		Servidor servidor = new Servidor("Servidor A", "192.168.1.103", 5000);
 		sessao.setServidor(servidor);
 		
 		LoginView loginForm = new LoginView(sessao);

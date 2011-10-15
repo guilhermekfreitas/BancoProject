@@ -13,6 +13,7 @@ import banco.cliente.modelo.Servidor;
 import banco.cliente.modelo.conexao.ConexaoServerImpl;
 import banco.cliente.modelo.conexao.ConexaoServidor;
 import banco.cliente.modelo.conexao.ConexaoServidorProxy;
+import banco.cliente.modelo.conexao.ConexaoServidorUDP;
 import banco.cliente.util.CliThread;
 import banco.cliente.util.SessaoApp;
 import banco.cliente.util.TipoComando;
@@ -189,8 +190,11 @@ public class LoginView {
 					String respostaA = null;
 					try
 					{
-						ConexaoServidor conexaoServidor = new ConexaoServerImpl();
-						respostaA = conexaoServidor.comunicaServidor(msgEnvio, servidorA);
+						// deve passar um socket aqui
+//						ConexaoServidor conexaoServidor = new ConexaoServerImpl(null);
+						Servidor servidor = SessaoApp.getSessaoApp().getServidor();
+						ConexaoServidor conexaoServidor = new ConexaoServidorUDP(null,servidor);
+						respostaA = conexaoServidor.comunicaServidor(msgEnvio, null);
 						System.out.println("Resposta do servidor:" + respostaA);
 
 					} catch (ConexaoException exc){
