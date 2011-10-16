@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package banco.cliente.util;
+package banco.cliente.deprecated;
 
 import java.io.EOFException;
 import java.io.IOException;

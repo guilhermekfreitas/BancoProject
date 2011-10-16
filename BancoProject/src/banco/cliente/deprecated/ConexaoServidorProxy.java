@@ -1,6 +1,7 @@
-package banco.cliente.modelo.conexao;
+package banco.cliente.deprecated;
 
 import banco.cliente.modelo.Servidor;
+import banco.cliente.modelo.conexao.ConexaoServidor;
 
 public class ConexaoServidorProxy implements ConexaoServidor {
 

@@ -1,7 +1,6 @@
 package banco.cliente.util;
 
 import java.net.DatagramSocket;
-import java.net.Socket;
 import javax.swing.JOptionPane;
 
 public class MonitoradorStatus implements Runnable {
@@ -21,8 +20,8 @@ public class MonitoradorStatus implements Runnable {
 			// verifica status do socket
 			while(true){
 				
-				System.out.println("Status do Servidor:" 
-				+ (estaConectado() ? "CONECTADO" : "DESCONECTADO") );
+//				System.out.println("Status do Servidor:" 
+//				+ (estaConectado() ? "CONECTADO" : "DESCONECTADO") );
 				Thread.sleep(5000);
 
 				if (!estaConectado()){
@@ -33,7 +32,6 @@ public class MonitoradorStatus implements Runnable {
 				
 			}
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -42,8 +40,8 @@ public class MonitoradorStatus implements Runnable {
 	}
 	
 	private boolean estaConectado(){
-		System.out.println(socket.getInetAddress() + " " + socket.getRemoteSocketAddress());
-		return !SessaoApp.getSessaoApp().getSocket().isClosed();
+//		System.out.println(socket.getInetAddress() + " " + socket.getRemoteSocketAddress());
+		return !socket.isClosed();
 	}
 
 	private void exibirMensagem() {

@@ -1,12 +1,10 @@
 package banco.cliente.modelo;
 
 public class Cliente {
-	
-	// converter para tipos
-	private String numConta; // apagar
+	private String numConta; 
 	private String nome;
 	private String saldo;
-	private String cliServidor; // o que é isso!
+	private String cliServidor; 
 	private String cpf;
 	private String rg;
 	private String dataNasc;

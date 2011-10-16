@@ -27,7 +27,6 @@ public class ConfiguracaoServidorView {
 		
 		frame = new JFrame("Configurações de Servidor");
 		
-//		frame.setDefaultCloseOperation(javax.swing.WindowConstants.);
 		frame.setResizable(false);
 		frame.setLayout(new GridLayout(3, 2));
 		
@@ -76,7 +75,6 @@ public class ConfiguracaoServidorView {
 		public void actionPerformed(ActionEvent arg0) {
 
 			try {
-				
 				String enderecoIP = tfEnderecoIP.getText().trim();
 				String porta = tfPorta.getText().trim();
 				
@@ -93,7 +91,6 @@ public class ConfiguracaoServidorView {
 			}
 		}
 
-		
 		
 	}
 	

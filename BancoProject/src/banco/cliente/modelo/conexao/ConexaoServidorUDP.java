@@ -22,16 +22,8 @@ public class ConexaoServidorUDP implements ConexaoServidor {
 	private Servidor servidor;
 
 	public ConexaoServidorUDP(DatagramSocket socket, Servidor servidor) {
-
 		this.client_socket = socket;
 		this.servidor = servidor;
-		//		
-		//		try {
-		//			client_socket = new DatagramSocket();
-		//			client_socket.setSoTimeout(500);
-		//		} catch (SocketException e) {
-		//			throw new ConexaoException("Não foi possível conectar-se com: " + servidor, e);
-		//		}
 	}
 
 	public ConexaoServidorUDP(SessaoApp sessaoApp) {
@@ -45,7 +37,7 @@ public class ConexaoServidorUDP implements ConexaoServidor {
 
 		// lançar excecao se retornasse [0]
 
-		System.out.println("MSG ===> " + msg + " para servidor: " + servidor);
+		System.out.println("LOG: Mensagem enviada: " + msg + " para servidor: " + servidor);
 
 		byte[] send_data = new byte[1024];
 
@@ -64,18 +56,18 @@ public class ConexaoServidorUDP implements ConexaoServidor {
 			byte[] dadosRecebidos = new byte[1000];
 			DatagramPacket recebido = new DatagramPacket(dadosRecebidos,dadosRecebidos.length);
 			client_socket.receive(recebido);
-			System.out.println(new String(dadosRecebidos));
+			System.out.println("LOG: Resposta: " + new String(dadosRecebidos));
 
 			String resposta = new String(dadosRecebidos).trim();
 			
 			if (resposta.equals(TipoComando.ERRO.getComando())){
 				throw new LoginOuSenhaInvalidoException("Login e/ou Senha inválidos!");
 			}
-			// casos com mais de um retorno
+
 			try{
 				while (recebido != null){
 					client_socket.receive(recebido);
-					System.out.println(new String(dadosRecebidos));
+					System.out.println("LOG: Resposta: " + new String(dadosRecebidos));
 					resposta += new String(dadosRecebidos);
 				}
 			} catch (SocketTimeoutException exc){

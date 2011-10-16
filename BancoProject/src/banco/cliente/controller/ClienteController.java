@@ -1,15 +1,5 @@
 package banco.cliente.controller;
 
-import java.io.EOFException;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
-import java.net.UnknownHostException;
-
-import javax.swing.JOptionPane;
-
-import banco.cliente.deprecated.Login;
 import banco.cliente.modelo.Cliente;
 import banco.cliente.modelo.Servidor;
 import banco.cliente.modelo.conexao.ConexaoServidor;
@@ -19,17 +9,13 @@ import banco.cliente.util.TipoComando;
 
 public class ClienteController {
 
-	private Servidor servidor;
-
-	public ClienteController(Servidor servidor) {
-		this.servidor = servidor;
+	public ClienteController() {
 	}
 
 	public void cadastraCliente(Cliente cliente)
 			throws DadosIncompletosException, ErroCadastroException, ConexaoException {
 
 		validaCliente(cliente);
-
 		enviaCliente(cliente);
 
 	}
@@ -44,41 +30,6 @@ public class ClienteController {
 		ConexaoServidor conexaoServidor = new ConexaoServidorUDP(sessaoApp);
 		String resposta = conexaoServidor.comunicaServidor(mensagem, null);
 		System.out.println("Resposta do servidor:" + resposta);
-
-
-
-
-//		Socket socket = null;
-//		String resposta = null;
-//		try {
-//
-//
-//			socket = new Socket(servidor.getEnderecoIP(), servidor.getPorta());
-//
-//			// mudar para BUfferedReader
-//			ObjectOutputStream saida = new ObjectOutputStream(socket.getOutputStream());
-//			saida.writeObject(mensagem);
-//			saida.flush();
-//
-//			// mudar tbm
-//			ObjectInputStream entrada = new ObjectInputStream(socket.getInputStream());
-//			entrada.read();
-//			resposta = entrada.toString();
-//
-//
-//
-//		} catch (UnknownHostException e) {
-//			throw new ConexaoException("Erro de conexão", e);
-//		} catch (IOException e) {
-//			throw new ConexaoException("Erro de conexão", e);
-//		} finally {
-//			if(socket!=null)
-//				try {
-//					socket.close();
-//				} catch (IOException e) {
-//					throw new ConexaoException("Erro de conexão", e);
-//				}
-//		}
 
 		if (resposta.equals(TipoComando.ERRO.getComando())){
 			throw new ErroCadastroException("Falha ao efetuar cadastro");
@@ -98,21 +49,7 @@ public class ClienteController {
 				cliente.getDataNasc(),
 				cliente.getLogin(),
 				cliente.getSenha());
-		//		StringBuffer msg = new StringBuffer("2");
-		//		msg.append(addCampo(cliente.getNome()));
-		//		msg.append(addCampo(cliente.getCpf()));
-		//		msg.append(addCampo(cliente.getRg()));
-		//		msg.append(addCampo(cliente.getDataNasc()));
-		//		msg.append(addCampo(cliente.getNumConta()));
-		//		msg.append(addCampo(cliente.getLogin()));
-		//		msg.append(addCampo(cliente.getSenha()));
-
 		return msg;
-		//		msg = "2 "+Nome+" "+Cpf+" "+RG+" "+DtNasc+" "+Conta+" "+Login+" "+Senha;
-	}
-
-	private String addCampo(String campo) {
-		return " " + campo;
 	}
 
 	private void validaCliente(Cliente cliente)	

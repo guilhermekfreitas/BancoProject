@@ -8,28 +8,23 @@ import javax.swing.*;
 
 import banco.cliente.controller.ConexaoException;
 import banco.cliente.controller.LoginOuSenhaInvalidoException;
+import banco.cliente.deprecated.CliThread;
+import banco.cliente.deprecated.ConexaoServidorProxy;
 import banco.cliente.deprecated.Login;
 import banco.cliente.modelo.Administrador;
 import banco.cliente.modelo.Cliente;
 import banco.cliente.modelo.Servidor;
 import banco.cliente.modelo.conexao.ConexaoServerImpl;
 import banco.cliente.modelo.conexao.ConexaoServidor;
-import banco.cliente.modelo.conexao.ConexaoServidorProxy;
 import banco.cliente.modelo.conexao.ConexaoServidorUDP;
 import banco.cliente.modelo.conexao.ServidorIndisponivelException;
-import banco.cliente.util.CliThread;
 import banco.cliente.util.SessaoApp;
 import banco.cliente.util.StatusBar;
 import banco.cliente.util.TipoComando;
 
 public class LoginView {
 
-	public static Servidor servidorA = new Servidor("Servidor A", "192.168.1.104", 4446);
-//	public static Servidor servidorB = new Servidor("Servidor B", "127.0.0.1", 4446);
-//	public static Servidor servidorC = new Servidor("Servidor C", "127.0.0.1", 4446);
-	
-	public static Cliente cliente = new Cliente();
-
+	public Cliente cliente;
 	private JLabel lbLogin;
 	private JLabel lbSenha;
 	private JTextField tfLogin;
@@ -39,13 +34,10 @@ public class LoginView {
 	private JButton botaoCancelar;
 	private JPasswordField tfSenha;
 	private JFrame frame;
-	private JButton botaoConfiguracao;
 
-	private Servidor servidor;
-	
 	public LoginView(SessaoApp sessao){
+		cliente = new Cliente();
 		iniciaComponentes();
-		this.servidor = sessao.getServidor();
 		start();
 	}
 
@@ -62,26 +54,25 @@ public class LoginView {
 		lbCliqueAqui = new JLabel();
 		botaoOk = new JButton();
 		botaoCancelar = new JButton();
-		botaoConfiguracao = new JButton("Ver configurações do servidor");
 		tfSenha = new JPasswordField();
-		
+
 
 		frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		frame.setTitle("Login");
 
 		JMenuBar menuBar = new JMenuBar();
-		
+
 		JMenu menu = new JMenu("Arquivo");
 		JMenuItem menuItem = new JMenuItem("Configurações de Servidor");
 		menuItem.addActionListener(new ConfiguracoesServidorActionListener());
-		
+
 		menu.add(menuItem);
-		
+
 		menuBar.add(menu);
-		
+
 		frame.setJMenuBar(menuBar);
-		
+
 		lbLogin.setText("Login: ");
 		lbSenha.setText("Senha: ");
 		lbcadastro.setText("Se não possui um cadastro ");
@@ -103,35 +94,7 @@ public class LoginView {
 		tfSenha.setMaximumSize(new Dimension(6, 6));
 		tfSenha.setMinimumSize(new Dimension(6, 6));
 
-//		JPanel panelCampos = new JPanel();
-//		panelCampos.setLayout(new GridLayout(2,2));
-//		panelCampos.add(lbLogin);
-//		panelCampos.add(tfLogin);
-//		panelCampos.add(lbSenha);
-//		panelCampos.add(tfSenha);
-//		
-//		JPanel panelCad = new JPanel();
-//		panelCad.setLayout(new FlowLayout());
-//		panelCad.add(lbcadastro);
-//		panelCad.add(lbCliqueAqui);
-//
-//		JPanel panelBotoes = new JPanel();
-//		panelBotoes.setLayout(new GridLayout(1,2));
-//		panelBotoes.add(botaoOk);
-//		panelBotoes.add(botaoCancelar);
-//		
-//		frame.setLayout(new GridLayout(4,0));
-//		frame.add(panelCampos);
-//		frame.add(panelCad);
-//		frame.add(panelBotoes);
-//		frame.add(statusBar);
-//		
-		
 		configuraLayout();
-
-		
-//		frame.add(statusBar, BorderLayout.SOUTH);
-		
 		frame.pack();
 
 	}
@@ -183,14 +146,13 @@ public class LoginView {
 																.addComponent(lbLogin)
 																.addComponent(tfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
 																.addGap(118, 118, 118))
-																
+
 				);
 	}
 
 	private void start(){
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				//				new Login().setVisible(true);]
 				frame.setVisible(true);
 				frame.setLocationRelativeTo(null);
 			}
@@ -203,7 +165,6 @@ public class LoginView {
 		}
 
 		private void abreTelaCadastro() {
-			// TODO Auto-generated method stub
 			frame.dispose();
 			CadClienteView cad = new CadClienteView(); // inicia cadastro de cliente
 			cad.setLocationRelativeTo(null);
@@ -218,9 +179,8 @@ public class LoginView {
 		}
 
 		private void btnOkActionPerformed(ActionEvent evt) {
-			// TODO Auto-generated method stub
 			String login = tfLogin.getText();
-			String senha = new String(tfSenha.getPassword()); //getText();
+			String senha = new String(tfSenha.getPassword()); 
 			String msgEnvio = gerarMsgEnvio(login, senha);
 
 			try {
@@ -229,21 +189,13 @@ public class LoginView {
 
 				if (isAdmin(login, senha)){
 					cliente = new Administrador();
-					frame.dispose();
-					PrincipalView programa = new PrincipalView();
-					programa.setLocationRelativeTo(null);
-					programa.setVisible(true);
 				}else{
-					//		            ConexaoServidor A = new CliThread();
 					String respostaA = null;
 					try
 					{
-						// deve passar um socket aqui
-//						ConexaoServidor conexaoServidor = new ConexaoServerImpl(null);
 						SessaoApp sessaoApp = SessaoApp.getSessaoApp();
 						ConexaoServidor conexaoServidor = new ConexaoServidorUDP(sessaoApp);
 						respostaA = conexaoServidor.comunicaServidor(msgEnvio, null);
-						System.out.println("Resposta do servidor:" + respostaA);
 
 					} catch (LoginOuSenhaInvalidoException exc){
 						JOptionPane.showMessageDialog(null, exc.getMessage(), "Erro!", JOptionPane.ERROR_MESSAGE);
@@ -260,24 +212,16 @@ public class LoginView {
 						JOptionPane.showMessageDialog(null, "Usuário não cadastrado!", "Erro!", JOptionPane.ERROR_MESSAGE);
 						return;
 					}
-					
-//					if (!respostaA.equals("0")){
-						cliente.setCliServidor(servidorA.getEnderecoIP());
-						//					cliServidor = servidorA.toString();
-						System.out.println("passa por aqui");
-						preencheCliente(respostaA);
-						frame.dispose();
-						
-						SessaoApp.getSessaoApp().setUsuarioLogado(cliente);
-						
-						PrincipalView programa = new PrincipalView();
-						programa.setLocationRelativeTo(null);
-						programa.setVisible(true);
-//					}
-//					else{
-//						JOptionPane.showMessageDialog(null, "Usuário não cadastrado!", "Erro!", JOptionPane.ERROR_MESSAGE);
-//					}
+
+					cliente.setCliServidor(SessaoApp.getSessaoApp().getServidor().getEnderecoIP());
+					preencheCliente(respostaA);
 				}
+				frame.dispose();
+				SessaoApp.getSessaoApp().setUsuarioLogado(cliente);
+
+				PrincipalView programa = new PrincipalView();
+				programa.setLocationRelativeTo(null);
+				programa.setVisible(true);
 
 			} catch (LoginOuSenhaInvalidoException exception ){
 				JOptionPane.showMessageDialog(null, exception.getMessage() , "Erro!", JOptionPane.OK_OPTION);
@@ -288,17 +232,13 @@ public class LoginView {
 		}
 
 		private boolean isAdmin(String login, String senha) {
-			System.out.println(login + " " + senha);
 			return (login.equals("admin"))&&(senha.equals("admin"));
 		}
 
 		private void validaCampos(String login, String senha) 
 				throws LoginOuSenhaInvalidoException {
-
-			System.out.println("Login:<"+login.trim()+">");
 			if (login.trim().isEmpty() || senha.trim().isEmpty()){
 				throw new LoginOuSenhaInvalidoException("Campo Login e/ou Senha está em branco.");
-				//JOptionPane.showMessageDialog(null, , "Erro!", JOptionPane.OK_OPTION);
 			}
 		}
 
@@ -312,7 +252,7 @@ public class LoginView {
 		private void preencheCliente(String respostaServidor) {
 
 			StringTokenizer tokenizer = new StringTokenizer(respostaServidor);
-			
+
 			cliente.setNumConta(tokenizer.nextToken());
 			cliente.setNome(tokenizer.nextToken());
 			tokenizer.nextToken(); // cpf
@@ -320,38 +260,7 @@ public class LoginView {
 			tokenizer.nextToken(); // data
 			tokenizer.nextToken(); // login
 			tokenizer.nextToken(); // senha
-			cliente.setSaldo(tokenizer.nextToken()); // saldo
-					
-			int tam = respostaServidor.length();
-			char palavra[]=respostaServidor.toCharArray();
-			int cont = 2;
-			int inicio = 0;
-			for (int i = 1; i<=3 ;i++){
-				inicio = cont;
-				while (palavra[cont]!= ' '){
-					cont++;
-					if (cont == tam){
-						break;
-					}
-				}
-				switch(i){
-				case 1:
-					String numConta = respostaServidor.substring(inicio, cont-1);
-					//cliente.setNumConta(numConta);
-					cont++;
-					break;
-				case 2:
-					String cliNome = respostaServidor.substring(inicio, cont-1);
-					//cliente.setNome(cliNome);
-					cont++;
-					break;
-				case 3:
-					String cliSaldo = respostaServidor.substring(inicio);
-					cliente.setSaldo(cliSaldo);
-					cont++;
-					break;
-				}
-			}
+			cliente.setSaldo(tokenizer.nextToken());
 		}
 	}
 
@@ -369,15 +278,10 @@ public class LoginView {
 	private final class ConfiguracoesServidorActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent evt) {
 			ConfiguracaoServidorView configuracaoServidorView = new ConfiguracaoServidorView();
-			
-		}
-
-		private void fechaAplicativo() {
-			System.exit(0);
 		}
 	} 
-	
-	
+
+
 
 }
 

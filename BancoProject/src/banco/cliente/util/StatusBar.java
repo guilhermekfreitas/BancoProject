@@ -6,6 +6,10 @@ import javax.swing.JLabel;
 
 public class StatusBar extends JLabel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1707312770901068124L;
 	private static final String DESCONECTADO = "Status do Servidor: DESCONECTADO";
 	private static final String CONECTADO = "Status do Servidor: CONECTADO";
 	

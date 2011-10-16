@@ -11,9 +11,7 @@ public class SessaoApp {
 	
 	private Cliente usuarioLogado;
 	private Servidor servidor;
-
 	private DatagramSocket socket;
-
 
 	private SessaoApp(){
 	}

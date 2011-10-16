@@ -9,17 +9,17 @@
  * Created on 07/09/2010, 15:01:09
  */
 
-package banco.servidor;
+package banco.cliente.view;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.*;
 
 import banco.cliente.controller.ConexaoException;
+import banco.cliente.deprecated.CliThread;
 import banco.cliente.modelo.Cliente;
 import banco.cliente.modelo.conexao.ConexaoServidor;
 import banco.cliente.modelo.conexao.ConexaoServidorUDP;
-import banco.cliente.util.CliThread;
 import banco.cliente.util.SessaoApp;
 import banco.cliente.util.TipoComando;
 
@@ -63,16 +63,6 @@ public class SaldoView extends JFrame {
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         String dataHojeAsString = formato.format(new Date());
         lbData2.setText(dataHojeAsString);
-        
-//        lbConta2.setText(banco.cliente.deprecated.Login.cliConta.toString());
-//        lbNome2.setText(banco.cliente.deprecated.Login.cliNome.toString());
-//        CliThread saldo = new CliThread();
-//        String retorno = saldo.comunicaServidor(msg, banco.cliente.deprecated.Login.cliServidor.toString());
-//        lbSaldo2.setText(retorno);
-//        Date dt = new Date();
-//        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-//        String dataHojeAsString = formato.format(dt);
-//        lbData2.setText(dataHojeAsString);
     }
 
 	private String geraMsg(String numConta) {
@@ -81,7 +71,6 @@ public class SaldoView extends JFrame {
 		return msg;
 	}
 
-    @SuppressWarnings("unchecked")
     private void initComponents() {
 
         lbNome = new JLabel();
@@ -116,9 +105,9 @@ public class SaldoView extends JFrame {
 
         lbData2.setText("Dia");
 
-        lbConta.setText("NÃºmero da conta: ");
+        lbConta.setText("Número da conta: ");
 
-        lbConta2.setText("NÃºmero da conta");
+        lbConta2.setText("Número da conta");
 
         btnOk.setText("OK");
         btnOk.addMouseListener(new java.awt.event.MouseAdapter() {

@@ -9,12 +9,11 @@
  * Created on 19/09/2010, 18:47:04
  */
 
-package banco.cliente.view;
+package banco.cliente.deprecated;
 
 import javax.swing.*;
 import javax.swing.table.*;
 
-import banco.cliente.util.CliThread;
 
 /**
  *

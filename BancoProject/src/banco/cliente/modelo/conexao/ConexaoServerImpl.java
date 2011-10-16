@@ -40,13 +40,11 @@ public class ConexaoServerImpl implements ConexaoServidor {
 	@Override
 	public String comunicaServidor(String msg, Servidor servidor)
 		throws ConexaoException {
-		//Socket socket = null;
         
         System.out.println("[ACESSANDO SERVIDOR]: " + servidor);
         //Abrindo conex√£o
         StringBuffer resposta = new StringBuffer("0");
         try {
-            //socket = new Socket(servidor.getEnderecoIP(), servidor.getPorta());
             PrintWriter saida = new PrintWriter(socket.getOutputStream(),true);
             saida.println(msg);
             
@@ -68,14 +66,7 @@ public class ConexaoServerImpl implements ConexaoServidor {
         catch (IOException e){
         	throw new ConexaoException("Erro de conex„o com servidor : " + servidor, e);
 		} finally {
-//            if(socket!=null)
-//                try {
-//                    socket.close();
-//                }
-//                catch (IOException e){
-//                	e.printStackTrace();
-//                }
-       }
+        }
     return resposta.toString();
 	}
 

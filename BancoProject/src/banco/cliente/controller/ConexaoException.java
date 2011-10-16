@@ -1,7 +1,5 @@
 package banco.cliente.controller;
 
-import java.net.UnknownHostException;
-
 public class ConexaoException extends RuntimeException {
 
 	public ConexaoException(){

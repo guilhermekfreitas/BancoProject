@@ -1,7 +1,5 @@
 package banco.cliente.modelo.conexao;
 
-import java.net.SocketException;
-
 public class ServidorIndisponivelException extends RuntimeException {
 
 	public ServidorIndisponivelException(String message, Exception exception) {

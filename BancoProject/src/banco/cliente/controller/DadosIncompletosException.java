@@ -1,8 +1,6 @@
 package banco.cliente.controller;
 
 public class DadosIncompletosException extends RuntimeException {
-
-	
 	
 	public DadosIncompletosException(String message) {
 		super(message);
