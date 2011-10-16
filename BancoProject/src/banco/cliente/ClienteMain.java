@@ -28,7 +28,7 @@ public class ClienteMain {
 			client_socket.setSoTimeout(1000);
 
 			sessao.setSocket(client_socket);
-			LoginView loginForm = new LoginView(sessao);
+			LoginView loginForm = new LoginView();
 		} catch (SocketException e) {
 			JOptionPane.showMessageDialog(null, "Não foi possivel contactar o servidor!", "Erro!", JOptionPane.ERROR_MESSAGE);
 		}

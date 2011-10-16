@@ -13,7 +13,6 @@ package banco.cliente.view;
 
 import javax.swing.*;
 
-import banco.cliente.deprecated.BuscaClienteView;
 import banco.cliente.util.MonitoradorStatus;
 import banco.cliente.util.SessaoApp;
 import banco.cliente.util.StatusBar;
@@ -92,11 +91,6 @@ public class PrincipalView extends JFrame {
 
 
         MenuBusca.setText("Busca ");
-        MenuBusca.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                menuBuscaActionPerformed(evt);
-            }
-        });
 
         MenuConsulta.setText("Consulta");
 
@@ -165,14 +159,6 @@ public class PrincipalView extends JFrame {
         mov.setLocationRelativeTo(null);
         mov.setVisible(true);
     }
-
-    private void menuBuscaActionPerformed(ActionEvent evt) {//GEN-FIRST:event_MenuBuscaActionPerformed
-        BuscaClienteView buscaCli = new BuscaClienteView();
-        buscaCli.setLocationRelativeTo(null);
-        buscaCli.setVisible(true);
-    }//GEN-LAST:event_MenuBuscaActionPerformed
-
-
 
 
 }

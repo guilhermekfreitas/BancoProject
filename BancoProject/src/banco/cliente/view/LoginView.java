@@ -8,18 +8,12 @@ import javax.swing.*;
 
 import banco.cliente.controller.ConexaoException;
 import banco.cliente.controller.LoginOuSenhaInvalidoException;
-import banco.cliente.deprecated.CliThread;
-import banco.cliente.deprecated.ConexaoServidorProxy;
-import banco.cliente.deprecated.Login;
 import banco.cliente.modelo.Administrador;
 import banco.cliente.modelo.Cliente;
-import banco.cliente.modelo.Servidor;
-import banco.cliente.modelo.conexao.ConexaoServerImpl;
 import banco.cliente.modelo.conexao.ConexaoServidor;
 import banco.cliente.modelo.conexao.ConexaoServidorUDP;
 import banco.cliente.modelo.conexao.ServidorIndisponivelException;
 import banco.cliente.util.SessaoApp;
-import banco.cliente.util.StatusBar;
 import banco.cliente.util.TipoComando;
 
 public class LoginView {
@@ -35,7 +29,7 @@ public class LoginView {
 	private JPasswordField tfSenha;
 	private JFrame frame;
 
-	public LoginView(SessaoApp sessao){
+	public LoginView(){
 		cliente = new Cliente();
 		iniciaComponentes();
 		start();

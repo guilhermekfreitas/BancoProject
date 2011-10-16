@@ -16,7 +16,6 @@ import java.util.Date;
 import javax.swing.*;
 
 import banco.cliente.controller.ConexaoException;
-import banco.cliente.deprecated.CliThread;
 import banco.cliente.modelo.Cliente;
 import banco.cliente.modelo.conexao.ConexaoServidor;
 import banco.cliente.modelo.conexao.ConexaoServidorUDP;
@@ -42,7 +41,6 @@ public class SaldoView extends JFrame {
         SessaoApp sessaoApp = SessaoApp.getSessaoApp();
         Cliente cliente = sessaoApp.getUsuarioLogado();
         
-        System.out.println("Cliente: " + cliente);
         String msg = geraMsg(cliente.getNumConta());
         
         lbConta2.setText(cliente.getNumConta().toString());
@@ -52,7 +50,6 @@ public class SaldoView extends JFrame {
         ConexaoServidor conexao = new ConexaoServidorUDP(sessaoApp);
         try {
             resposta = conexao.comunicaServidor(msg, null);
-        	System.out.println("Respota do servidor: " + resposta);
         } catch (ConexaoException exc){
 			JOptionPane.showMessageDialog(null, exc.getMessage(), "Erro!", JOptionPane.ERROR_MESSAGE);
 			return;
