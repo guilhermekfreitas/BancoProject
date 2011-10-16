@@ -64,6 +64,7 @@ public class LoginView {
 		botaoCancelar = new JButton();
 		botaoConfiguracao = new JButton("Ver configurações do servidor");
 		tfSenha = new JPasswordField();
+		
 
 		frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		frame.setResizable(false);
@@ -80,8 +81,6 @@ public class LoginView {
 		menuBar.add(menu);
 		
 		frame.setJMenuBar(menuBar);
-		
-		
 		
 		lbLogin.setText("Login: ");
 		lbSenha.setText("Senha: ");
@@ -104,10 +103,34 @@ public class LoginView {
 		tfSenha.setMaximumSize(new Dimension(6, 6));
 		tfSenha.setMinimumSize(new Dimension(6, 6));
 
+//		JPanel panelCampos = new JPanel();
+//		panelCampos.setLayout(new GridLayout(2,2));
+//		panelCampos.add(lbLogin);
+//		panelCampos.add(tfLogin);
+//		panelCampos.add(lbSenha);
+//		panelCampos.add(tfSenha);
+//		
+//		JPanel panelCad = new JPanel();
+//		panelCad.setLayout(new FlowLayout());
+//		panelCad.add(lbcadastro);
+//		panelCad.add(lbCliqueAqui);
+//
+//		JPanel panelBotoes = new JPanel();
+//		panelBotoes.setLayout(new GridLayout(1,2));
+//		panelBotoes.add(botaoOk);
+//		panelBotoes.add(botaoCancelar);
+//		
+//		frame.setLayout(new GridLayout(4,0));
+//		frame.add(panelCampos);
+//		frame.add(panelCad);
+//		frame.add(panelBotoes);
+//		frame.add(statusBar);
+//		
+		
 		configuraLayout();
 
-		StatusBar statusBar = new StatusBar();
-		frame.add(statusBar, BorderLayout.SOUTH);
+		
+//		frame.add(statusBar, BorderLayout.SOUTH);
 		
 		frame.pack();
 
@@ -160,6 +183,7 @@ public class LoginView {
 																.addComponent(lbLogin)
 																.addComponent(tfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
 																.addGap(118, 118, 118))
+																
 				);
 	}
 

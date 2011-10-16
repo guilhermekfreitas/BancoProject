@@ -5,13 +5,21 @@ import java.awt.Dimension;
 import javax.swing.JLabel;
 
 public class StatusBar extends JLabel {
-	public StatusBar() {
+	
+	private static final String DESCONECTADO = "Status do Servidor: DESCONECTADO";
+	private static final String CONECTADO = "Status do Servidor: CONECTADO";
+	
+	public StatusBar(String mensagem) {
 		super();
 		super.setPreferredSize(new Dimension(100,16));
-		setMessage("Conectado com servidor!");
+		setMessage(CONECTADO);
 	}
 
 	private void setMessage(String mensagem) {
 		setText(" " + mensagem);
+	}
+
+	public void desconectou() {
+		setMessage(DESCONECTADO);
 	}
 }

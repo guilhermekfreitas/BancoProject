@@ -104,7 +104,7 @@ public class MovimentacaoView extends JFrame {
         jLabel3.setText("jLabel3");
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("MovimentaÃ§Ãµes");
+        setTitle("Movimentações");
         setResizable(false);
 
         lbMovimentacao.setText("Movimentação: ");

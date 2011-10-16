@@ -13,8 +13,11 @@ package banco.cliente.view;
 
 import javax.swing.*;
 
+import banco.cliente.util.MonitoradorStatus;
+import banco.cliente.util.StatusBar;
 import banco.servidor.SaldoView;
 
+import java.awt.BorderLayout;
 import java.awt.event.*;
 /**
  *
@@ -32,6 +35,7 @@ public class PrincipalView extends JFrame {
     private JMenuBar MenuPrincipal;
     private JMenuItem MenuSair;
     private JMenuItem MenuSaldo;
+	private StatusBar statusBar;
     
     /** Creates new form Principal */
     public PrincipalView() {
@@ -43,6 +47,11 @@ public class PrincipalView extends JFrame {
             MenuSaldo.setVisible(false);
             MenuMovimento.setVisible(false);
         }
+        
+        MonitoradorStatus monitorador = new MonitoradorStatus(statusBar);
+        
+        Thread threadMonitoramento = new Thread(monitorador);
+        threadMonitoramento.start();
     }
 
     /** This method is called from within the constructor to
@@ -63,6 +72,7 @@ public class PrincipalView extends JFrame {
         MenuConta = new JMenuItem();
         MenuMovimentacoes = new JMenu();
         MenuMovimento = new JMenuItem();
+        statusBar = new StatusBar("Status do Servidor:");
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -135,7 +145,11 @@ public class PrincipalView extends JFrame {
 
         setJMenuBar(MenuPrincipal);
 
-        configuraLayout();
+        setSize(400,400);
+        setLayout(new BorderLayout());
+        add(statusBar,BorderLayout.SOUTH);
+        
+        //configuraLayout();
 
         
     }// </editor-fold>//GEN-END:initComponents
