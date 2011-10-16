@@ -24,7 +24,11 @@ import banco.cliente.util.TipoComando;
 
 public class SaldoView extends JFrame {
 
-    private JButton btnOk;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -5379768310278294872L;
+	private JButton btnOk;
     private JLabel lbConta;
     private JLabel lbConta2;
     private JLabel lbData;

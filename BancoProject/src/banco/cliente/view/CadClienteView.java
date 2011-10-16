@@ -19,7 +19,6 @@ import banco.cliente.controller.ClienteController;
 import banco.cliente.controller.ConexaoException;
 import banco.cliente.controller.ErroCadastroException;
 import banco.cliente.modelo.Cliente;
-import banco.cliente.util.SessaoApp;
 /**
  *
  * @author usuariio
@@ -237,7 +236,8 @@ public class CadClienteView extends JFrame {
 
     private void btnCancelarActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         dispose();
-        LoginView login = new LoginView();
+        @SuppressWarnings("unused")
+		LoginView login = new LoginView();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnCadastrarActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
@@ -259,7 +259,8 @@ public class CadClienteView extends JFrame {
         	JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!", "", JOptionPane.INFORMATION_MESSAGE);
         	dispose();
 
-        	LoginView loginForm = new LoginView();
+        	@SuppressWarnings("unused")
+			LoginView loginForm = new LoginView();
             
         } catch ( DadosIncompletosException exc ){
         	exibeDialogErro(exc.getMessage());

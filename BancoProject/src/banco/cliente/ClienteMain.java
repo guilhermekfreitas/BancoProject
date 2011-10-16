@@ -11,7 +11,7 @@ import banco.cliente.view.LoginView;
 
 public class ClienteMain {
 	public static void main(String[] args) {
-		ClienteMain main = new ClienteMain();
+		new ClienteMain();
 	}
 	
 	
@@ -28,7 +28,7 @@ public class ClienteMain {
 			client_socket.setSoTimeout(1000);
 
 			sessao.setSocket(client_socket);
-			LoginView loginForm = new LoginView();
+			new LoginView();
 		} catch (SocketException e) {
 			JOptionPane.showMessageDialog(null, "Não foi possivel contactar o servidor!", "Erro!", JOptionPane.ERROR_MESSAGE);
 		}

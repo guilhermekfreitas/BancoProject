@@ -271,6 +271,7 @@ public class LoginView {
 
 	private final class ConfiguracoesServidorActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent evt) {
+			@SuppressWarnings("unused")
 			ConfiguracaoServidorView configuracaoServidorView = new ConfiguracaoServidorView();
 		}
 	} 

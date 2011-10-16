@@ -1,7 +1,6 @@
 package banco.cliente.controller;
 
 import banco.cliente.modelo.Cliente;
-import banco.cliente.modelo.Servidor;
 import banco.cliente.modelo.conexao.ConexaoServidor;
 import banco.cliente.modelo.conexao.ConexaoServidorUDP;
 import banco.cliente.util.SessaoApp;
